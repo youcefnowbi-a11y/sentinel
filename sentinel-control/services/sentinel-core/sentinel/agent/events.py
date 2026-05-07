@@ -95,6 +95,8 @@ class AgentEventType(StrEnum):
     PARTIAL_SUCCESS_DECLARED = "partial_success_declared"
     AUTHORITY_EXTENSION_PROPOSED = "authority_extension_proposed"
     SKILL_PROCEDURE_MATCHED = "skill_procedure_matched"
+    BRAINBENCH_CASE_RUN = "brainbench_case_run"
+    BRAINBENCH_REPORT_CREATED = "brainbench_report_created"
     EFFORT_ROUTED = "effort_routed"
     PLAN_CREATED = "plan_created"
     PLAN_REVIEWED = "plan_reviewed"

@@ -41,6 +41,7 @@ from sentinel.agent.skill_procedure import (
     SkillProcedureMatch,
     SuccessProof,
 )
+from sentinel.agent.brainbench import BrainBench, BrainBenchCase, BrainBenchCaseResult, BrainBenchReport
 from sentinel.agent.workspace import (
     BroadcastSlice,
     MissionGlobalWorkspace,
@@ -321,6 +322,10 @@ __all__ = [
     "AuthorityExtensionProposal",
     "BrowserCitation",
     "BrainMode",
+    "BrainBench",
+    "BrainBenchCase",
+    "BrainBenchCaseResult",
+    "BrainBenchReport",
     "BrowserActionRecommendation",
     "BrowserActionRecommendationType",
     "BayesianBeliefState",

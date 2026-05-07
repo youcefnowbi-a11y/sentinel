@@ -5,19 +5,22 @@ Date: 2026-05-07
 ## Phase
 
 ```text
-current_phase = P5J_FULL_LOCKED
-previous_phase = P5I_FULL_LOCKED
-next_phase = P5K_BRAINBENCH
+current_phase = P5K_FULL_LOCKED
+previous_phase = P5J_FULL_LOCKED
+next_phase = P5L_BRAIN_L4_INTEGRATED_REVIEW
 ```
 
-P5J is accepted as full locked. It implements `SkillProcedureGraph` as an
-internal advisory Brain L4 procedure primitive. It does not execute procedures,
-grant authority, add external powers, implement payment/spend runtime, trading
-runtime, account creation, credential access, or authority expansion.
+P5K is accepted as full locked. It implements `BrainBench` as the Brain L4
+certification and evaluation layer. It does not execute external systems, grant
+authority, add external powers, implement payment/spend runtime, trading runtime,
+account creation, credential access, or authority expansion.
 
 ## Verification
 
 ```text
+targeted P5K tests = 9 passed
+targeted full P5 suite = 79 passed
+full sentinel-core regression = 595 passed
 targeted P5J tests = 6 passed
 targeted P5I tests = 10 passed
 targeted P5H tests = 7 passed
@@ -28,12 +31,14 @@ targeted P5B/P5C/P5D neighbor tests = 23 passed
 P5D.5 docs verification = diff check passed
 targeted P5D tests = 11 passed
 targeted P5B/P5C tests = 12 passed
-full sentinel-core regression = not rerun for P5J
 ```
 
 Commands verified:
 
 ```bash
+python -m pytest tests/test_agent_brainbench.py -v --tb=short
+python -m pytest tests/test_agent_mission_entropy.py tests/test_agent_count_controller.py tests/test_agent_society_manager.py tests/test_agent_global_workspace.py tests/test_agent_bayesian_belief_state.py tests/test_agent_adaptive_debate.py tests/test_agent_epistemic_action.py tests/test_agent_resourcefulness_engine.py tests/test_agent_skill_procedure_graph.py tests/test_agent_brainbench.py -v --tb=short
+python -m pytest tests -v --tb=short
 python -m pytest tests/test_agent_skill_procedure_graph.py -v --tb=short
 python -m pytest tests/test_agent_resourcefulness_engine.py -v --tb=short
 python -m pytest tests/test_agent_epistemic_action.py -v --tb=short
@@ -46,8 +51,48 @@ python -m pytest tests/test_agent_society_manager.py -v --tb=short
 python -m pytest tests/test_agent_mission_entropy.py tests/test_agent_count_controller.py -v --tb=short
 ```
 
-Full sentinel-core was intentionally not rerun for this P5J pass because the
-user requested targeted verification.
+Full sentinel-core was rerun after P5K and passed.
+
+## P5K Required Files
+
+These files are required to preserve the P5K full lock:
+
+```text
+sentinel-control/services/sentinel-core/sentinel/agent/brainbench.py
+sentinel-control/services/sentinel-core/sentinel/agent/events.py
+sentinel-control/services/sentinel-core/sentinel/agent/__init__.py
+sentinel-control/services/sentinel-core/tests/test_agent_brainbench.py
+sentinel-control/docs/brain/P5K_BRAINBENCH_SCORECARD.md
+sentinel-control/docs/brain/P5K_LOCK_VERDICT.md
+sentinel-control/docs/CURRENT_STATE_LOCK.md
+```
+
+## P5K Locked Doctrine
+
+`BrainBench` is evaluation only.
+
+It produces:
+
+```text
+BrainBenchCase
+BrainBenchReport
+allocation_accuracy
+belief_update_quality
+debate_trigger_precision
+information_gain_score
+cost_efficiency
+trace_integrity
+negative authority-expansion cases
+```
+
+It may emit:
+
+```text
+BRAINBENCH_CASE_RUN
+BRAINBENCH_REPORT_CREATED
+```
+
+BrainBench rejects forged L4 traces and authority-expansion attempts.
 
 ## P5J Required Files
 
