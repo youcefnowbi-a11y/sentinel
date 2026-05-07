@@ -5,19 +5,22 @@ Date: 2026-05-07
 ## Phase
 
 ```text
-current_phase = P5K_FULL_LOCKED
-previous_phase = P5J_FULL_LOCKED
-next_phase = P5L_BRAIN_L4_INTEGRATED_REVIEW
+current_phase = P5L_FULL_LOCKED
+previous_phase = P5K_FULL_LOCKED
+next_phase = P6A_EXTERNAL_ORGANS_RUNTIME_PLANNING
 ```
 
-P5K is accepted as full locked. It implements `BrainBench` as the Brain L4
-certification and evaluation layer. It does not execute external systems, grant
-authority, add external powers, implement payment/spend runtime, trading runtime,
-account creation, credential access, or authority expansion.
+P5L is accepted as full locked. It integrates and hardens the Brain L4 stack
+before P6 external organs. It does not execute external systems, grant authority,
+add external powers, implement payment/spend runtime, trading runtime, account
+creation, credential access, browser power expansion, or authority expansion.
 
 ## Verification
 
 ```text
+targeted P5L tests = 23 passed
+targeted full P5 suite with P5L = 102 passed
+full sentinel-core regression = 618 passed
 targeted P5K tests = 9 passed
 targeted full P5 suite = 79 passed
 full sentinel-core regression = 595 passed
@@ -36,6 +39,9 @@ targeted P5B/P5C tests = 12 passed
 Commands verified:
 
 ```bash
+python -m pytest tests/test_agent_brain_l4_integrated_review.py tests/test_agent_brain_l4_premortem_fixtures.py -v --tb=short
+python -m pytest tests/test_agent_mission_entropy.py tests/test_agent_count_controller.py tests/test_agent_society_manager.py tests/test_agent_global_workspace.py tests/test_agent_bayesian_belief_state.py tests/test_agent_adaptive_debate.py tests/test_agent_epistemic_action.py tests/test_agent_resourcefulness_engine.py tests/test_agent_skill_procedure_graph.py tests/test_agent_brainbench.py tests/test_agent_brain_l4_integrated_review.py tests/test_agent_brain_l4_premortem_fixtures.py -v --tb=short
+python -m pytest tests -v --tb=short
 python -m pytest tests/test_agent_brainbench.py -v --tb=short
 python -m pytest tests/test_agent_mission_entropy.py tests/test_agent_count_controller.py tests/test_agent_society_manager.py tests/test_agent_global_workspace.py tests/test_agent_bayesian_belief_state.py tests/test_agent_adaptive_debate.py tests/test_agent_epistemic_action.py tests/test_agent_resourcefulness_engine.py tests/test_agent_skill_procedure_graph.py tests/test_agent_brainbench.py -v --tb=short
 python -m pytest tests -v --tb=short
@@ -51,7 +57,48 @@ python -m pytest tests/test_agent_society_manager.py -v --tb=short
 python -m pytest tests/test_agent_mission_entropy.py tests/test_agent_count_controller.py -v --tb=short
 ```
 
-Full sentinel-core was rerun after P5K and passed.
+Full sentinel-core was rerun after P5L and passed.
+
+## P5L Required Files
+
+These files are required to preserve the P5L full lock:
+
+```text
+sentinel-control/services/sentinel-core/sentinel/agent/workspace.py
+sentinel-control/services/sentinel-core/sentinel/agent/resourcefulness.py
+sentinel-control/services/sentinel-core/sentinel/agent/brainbench.py
+sentinel-control/services/sentinel-core/tests/test_agent_brain_l4_integrated_review.py
+sentinel-control/services/sentinel-core/tests/test_agent_brain_l4_premortem_fixtures.py
+sentinel-control/docs/brain/P5L_BRAIN_L4_INTEGRATED_REVIEW.md
+sentinel-control/docs/brain/P5L_PREMORTEM_HARDENING_SCORECARD.md
+sentinel-control/docs/brain/P5L_LOCK_VERDICT.md
+sentinel-control/docs/CURRENT_STATE_LOCK.md
+```
+
+## P5L Locked Doctrine
+
+P5L certifies the Brain L4 stack as an integrated internal cognitive system.
+
+It hardens these pre-mortem classes:
+
+```text
+over/under agent allocation
+workspace fact pollution
+belief confidence inflation
+debate false positive/false negative routing
+unsafe high-information action ranking
+resourcefulness authority bypass
+silent authority extension activation
+partial success mislabeled as full success
+skill procedure missing-authority execution recommendation
+capital profit guarantee claims
+dynamic spend changes without signal refs
+dirty broadcast context leakage
+role creation without first-principles purpose
+missing or forged P5 trace events
+```
+
+P5L remains internal. It does not attach real-world execution organs.
 
 ## P5K Required Files
 

@@ -101,6 +101,9 @@ class BrainBench:
         "resourcefulness": "resourcefulness_score",
         "procedure_match": "procedure_match_score",
         "authority_negative": "trace_integrity",
+        "capital_claim": "trace_integrity",
+        "dynamic_spend": "trace_integrity",
+        "negative_case": "trace_integrity",
     }
 
     def run(self, cases: list[BrainBenchCase], *, event_bus: EventBus | None = None) -> BrainBenchReport:
@@ -111,7 +114,7 @@ class BrainBench:
             "debate_trigger_precision": self._metric(results, "debate_trigger"),
             "information_gain_score": self._metric(results, "information_gain"),
             "cost_efficiency": self._metric(results, "cost_efficiency"),
-            "trace_integrity": self._metric(results, "trace_integrity", "authority_negative"),
+            "trace_integrity": self._metric(results, "trace_integrity", "authority_negative", "capital_claim", "dynamic_spend", "negative_case"),
             "resourcefulness_score": self._metric(results, "resourcefulness"),
             "procedure_match_score": self._metric(results, "procedure_match"),
         }
@@ -212,6 +215,15 @@ class BrainBench:
         elif category == "authority_negative":
             if observed.get("authority_expansion") is True:
                 errors.append("authority_expansion_not_rejected")
+        elif category == "capital_claim":
+            if observed.get("profit_guarantee") is True:
+                errors.append("profit_guarantee_claim_flagged")
+        elif category == "dynamic_spend":
+            if observed.get("adaptive_change") is True and not observed.get("signal_refs"):
+                errors.append("dynamic_spend_change_missing_signal_refs")
+        elif category == "negative_case":
+            if observed.get("negative_case_detected") is not True:
+                errors.append("negative_case_missed")
         return not errors
 
     @staticmethod

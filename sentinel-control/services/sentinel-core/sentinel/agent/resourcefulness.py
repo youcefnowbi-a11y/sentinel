@@ -87,6 +87,8 @@ class PartialSuccessReport(SentinelModel):
     def _validate(self) -> PartialSuccessReport:
         if not self.evidence_refs:
             raise ValueError("PartialSuccessReport requires evidence refs.")
+        if self.full_success:
+            raise ValueError("PartialSuccessReport cannot be marked as full success.")
         if not self.id:
             self.id = _stable_id(
                 "psuccess",
@@ -116,6 +118,8 @@ class AuthorityExtensionProposal(SentinelModel):
 
     @model_validator(mode="after")
     def _validate(self) -> AuthorityExtensionProposal:
+        if not self.proposal_only or self.activated or self.authority_expansion:
+            raise ValueError("AuthorityExtensionProposal must remain proposal-only and inactive.")
         if not self.id:
             self.id = _stable_id(
                 "authprop",

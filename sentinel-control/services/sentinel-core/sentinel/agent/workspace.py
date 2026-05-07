@@ -48,6 +48,8 @@ class WorkspaceFact(SentinelModel):
     def _validate(self) -> WorkspaceFact:
         if not self.evidence_refs:
             raise ValueError("WorkspaceFact requires at least one evidence ref.")
+        if "unverified" in _normalize_text(self.source) or any("unverified" in _normalize_text(tag) for tag in self.tags):
+            raise ValueError("Unverified workspace claims cannot be accepted as facts.")
         if not self.id:
             self.id = _stable_id("wfact", {"text": _normalize_text(self.text), "evidence_refs": self.evidence_refs})
         return self
@@ -88,6 +90,9 @@ class WorkspaceSignal(SentinelModel):
 
     @model_validator(mode="after")
     def _validate(self) -> WorkspaceSignal:
+        dynamic_spend_signal_types = {"dynamic_spend", "budget_reallocation", "spend_policy", "transaction_limit_change"}
+        if self.signal_type in dynamic_spend_signal_types and not self.evidence_refs:
+            raise ValueError("Dynamic spend signals require signal evidence refs.")
         if not self.id:
             self.id = _stable_id(
                 "wsig",
