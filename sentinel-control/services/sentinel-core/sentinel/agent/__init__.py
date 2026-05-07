@@ -20,6 +20,7 @@ from sentinel.agent.agent_society import (
     AgentSocietyPlanStatus,
 )
 from sentinel.agent.belief_state import BayesianBeliefState, Belief, BeliefUpdate, ContradictionSupport, EvidenceSupport
+from sentinel.agent.adaptive_debate import AdaptiveDebateRouter, DebateAggregationPlan, DebateRolePlan, DebateRoute, SparseMoAPlan
 from sentinel.agent.workspace import (
     BroadcastSlice,
     MissionGlobalWorkspace,
@@ -295,6 +296,7 @@ __all__ = [
     "ActionEvaluator",
     "AdversarialFinding",
     "AdversarialReviewer",
+    "AdaptiveDebateRouter",
     "Assumption",
     "BrowserCitation",
     "BrainMode",
@@ -404,6 +406,9 @@ __all__ = [
     "CoreGateCheckKind",
     "ContradictionRef",
     "ContradictionSupport",
+    "DebateAggregationPlan",
+    "DebateRolePlan",
+    "DebateRoute",
     "EvidenceChain",
     "EvidenceChainBuilder",
     "EvidenceChainReviewer",
@@ -477,6 +482,7 @@ __all__ = [
     "RuntimeCertificationGate",
     "RuntimeCertificationResult",
     "SentinelEvalBench",
+    "SparseMoAPlan",
     "SceneActionCandidate",
     "Supervisor",
     "ToolSelectionDecision",

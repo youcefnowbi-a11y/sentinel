@@ -5,31 +5,34 @@ Date: 2026-05-07
 ## Phase
 
 ```text
-current_phase = P5F_FULL_LOCKED
-previous_phase = P5E_FULL_LOCKED
-next_phase = P5G_ADAPTIVE_DEBATE_SPARSE_MOA
+current_phase = P5G_FULL_LOCKED
+previous_phase = P5F_FULL_LOCKED
+next_phase = P5H_EPISTEMIC_ACTION_EVALUATOR
 ```
 
-P5F is accepted as full locked. It implements `BayesianBeliefState` as an
-internal Brain L4 belief primitive. It does not implement runtime execution,
-agent spawning, external powers, payment/spend runtime, trading runtime, account
-creation, credential access, or authority expansion.
+P5G is accepted as full locked. It implements `AdaptiveDebateRouter` and
+Sparse MoA planning as internal advisory Brain L4 primitives. It does not
+implement runtime agent execution, runtime multi-agent execution, external
+powers, payment/spend runtime, trading runtime, account creation, credential
+access, or authority expansion.
 
 ## Verification
 
 ```text
+targeted P5G tests = 7 passed
 targeted P5F tests = 6 passed
 targeted P5E tests = 11 passed
 targeted P5B/P5C/P5D neighbor tests = 23 passed
 P5D.5 docs verification = diff check passed
 targeted P5D tests = 11 passed
 targeted P5B/P5C tests = 12 passed
-full sentinel-core regression = not rerun for P5F
+full sentinel-core regression = not rerun for P5G
 ```
 
 Commands verified:
 
 ```bash
+python -m pytest tests/test_agent_adaptive_debate.py -v --tb=short
 python -m pytest tests/test_agent_bayesian_belief_state.py -v --tb=short
 python -m pytest tests/test_agent_global_workspace.py -v --tb=short
 python -m pytest tests/test_agent_mission_entropy.py tests/test_agent_count_controller.py tests/test_agent_society_manager.py -v --tb=short
@@ -38,8 +41,49 @@ python -m pytest tests/test_agent_society_manager.py -v --tb=short
 python -m pytest tests/test_agent_mission_entropy.py tests/test_agent_count_controller.py -v --tb=short
 ```
 
-Full sentinel-core was intentionally not rerun for this P5F pass because the
+Full sentinel-core was intentionally not rerun for this P5G pass because the
 user requested targeted verification.
+
+## P5G Required Files
+
+These files are required to preserve the P5G full lock:
+
+```text
+sentinel-control/services/sentinel-core/sentinel/agent/adaptive_debate.py
+sentinel-control/services/sentinel-core/sentinel/agent/events.py
+sentinel-control/services/sentinel-core/sentinel/agent/__init__.py
+sentinel-control/services/sentinel-core/tests/test_agent_adaptive_debate.py
+sentinel-control/docs/brain/P5G_ADAPTIVE_DEBATE_SPARSE_MOA_SCORECARD.md
+sentinel-control/docs/brain/P5G_LOCK_VERDICT.md
+sentinel-control/docs/CURRENT_STATE_LOCK.md
+```
+
+## P5G Locked Doctrine
+
+`AdaptiveDebateRouter` is advisory only.
+
+It produces:
+
+```text
+DebateRoute
+DebateRolePlan
+SparseMoAPlan
+DebateAggregationPlan
+unresolved_disputes
+fan_in_limit
+max_layers
+max_debate_rounds
+```
+
+It may emit:
+
+```text
+DEBATE_ROUTED
+MOA_LAYER_COMPLETED
+DEBATE_AGGREGATED
+```
+
+Debate planning never executes agents, calls tools, or expands authority.
 
 ## P5F Required Files
 
