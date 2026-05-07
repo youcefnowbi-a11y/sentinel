@@ -5,31 +5,32 @@ Date: 2026-05-07
 ## Phase
 
 ```text
-current_phase = P5E_FULL_LOCKED
-previous_phase = P5D5_FULL_LOCKED
-next_phase = P5F_BAYESIAN_BELIEF_STATE
+current_phase = P5F_FULL_LOCKED
+previous_phase = P5E_FULL_LOCKED
+next_phase = P5G_ADAPTIVE_DEBATE_SPARSE_MOA
 ```
 
-P5E is accepted as full locked. It implements `MissionGlobalWorkspace` as the
-versioned shared cognition layer for Sentinel Brain L4. It does not implement
-runtime multi-agent execution, payment/spend runtime, trading runtime, account
-creation, browser/external API powers, credential access, or authority
-expansion.
+P5F is accepted as full locked. It implements `BayesianBeliefState` as an
+internal Brain L4 belief primitive. It does not implement runtime execution,
+agent spawning, external powers, payment/spend runtime, trading runtime, account
+creation, credential access, or authority expansion.
 
 ## Verification
 
 ```text
+targeted P5F tests = 6 passed
 targeted P5E tests = 11 passed
 targeted P5B/P5C/P5D neighbor tests = 23 passed
 P5D.5 docs verification = diff check passed
 targeted P5D tests = 11 passed
 targeted P5B/P5C tests = 12 passed
-full sentinel-core regression = not rerun for P5E
+full sentinel-core regression = not rerun for P5F
 ```
 
 Commands verified:
 
 ```bash
+python -m pytest tests/test_agent_bayesian_belief_state.py -v --tb=short
 python -m pytest tests/test_agent_global_workspace.py -v --tb=short
 python -m pytest tests/test_agent_mission_entropy.py tests/test_agent_count_controller.py tests/test_agent_society_manager.py -v --tb=short
 git diff --check -- sentinel-control/docs/CURRENT_STATE_LOCK.md sentinel-control/docs/brain
@@ -37,8 +38,47 @@ python -m pytest tests/test_agent_society_manager.py -v --tb=short
 python -m pytest tests/test_agent_mission_entropy.py tests/test_agent_count_controller.py -v --tb=short
 ```
 
-Full sentinel-core was intentionally not rerun for this P5E pass because the
+Full sentinel-core was intentionally not rerun for this P5F pass because the
 user requested targeted verification.
+
+## P5F Required Files
+
+These files are required to preserve the P5F full lock:
+
+```text
+sentinel-control/services/sentinel-core/sentinel/agent/belief_state.py
+sentinel-control/services/sentinel-core/sentinel/agent/events.py
+sentinel-control/services/sentinel-core/sentinel/agent/__init__.py
+sentinel-control/services/sentinel-core/tests/test_agent_bayesian_belief_state.py
+sentinel-control/docs/brain/P5F_BAYESIAN_BELIEF_STATE_SCORECARD.md
+sentinel-control/docs/brain/P5F_LOCK_VERDICT.md
+sentinel-control/docs/CURRENT_STATE_LOCK.md
+```
+
+## P5F Locked Doctrine
+
+`BayesianBeliefState` is advisory only.
+
+It produces:
+
+```text
+Belief
+BeliefUpdate
+EvidenceSupport
+ContradictionSupport
+belief_probability
+belief_variance
+posterior_update_reason
+```
+
+It may emit:
+
+```text
+BELIEF_STATE_UPDATED
+```
+
+Belief confidence informs cognition only. It never grants tools, actions, paths,
+browser powers, payment powers, credentials, or authority.
 
 ## P5E Required Files
 
@@ -236,7 +276,7 @@ sentinel-control/docs/brain/P5B_LOCK_VERDICT.md
 
 ## Boundary
 
-Do not start P5F in this pass.
+Do not stop the P5 sprint unless a hard blocker appears.
 
 Do not start the next organ.
 

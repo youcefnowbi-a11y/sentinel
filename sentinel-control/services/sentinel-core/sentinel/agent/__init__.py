@@ -19,6 +19,7 @@ from sentinel.agent.agent_society import (
     AgentSocietyPlan,
     AgentSocietyPlanStatus,
 )
+from sentinel.agent.belief_state import BayesianBeliefState, Belief, BeliefUpdate, ContradictionSupport, EvidenceSupport
 from sentinel.agent.workspace import (
     BroadcastSlice,
     MissionGlobalWorkspace,
@@ -299,6 +300,9 @@ __all__ = [
     "BrainMode",
     "BrowserActionRecommendation",
     "BrowserActionRecommendationType",
+    "BayesianBeliefState",
+    "Belief",
+    "BeliefUpdate",
     "BroadcastSlice",
     "BrowserControlledCapabilityResult",
     "BrowserControlledCapabilityRunner",
@@ -399,6 +403,7 @@ __all__ = [
     "CoreGateCheck",
     "CoreGateCheckKind",
     "ContradictionRef",
+    "ContradictionSupport",
     "EvidenceChain",
     "EvidenceChainBuilder",
     "EvidenceChainReviewer",
@@ -407,6 +412,7 @@ __all__ = [
     "EvidenceDecisionType",
     "EvidenceRef",
     "EvidenceSourceType",
+    "EvidenceSupport",
     "EvidenceVerdict",
     "ExecutionPosture",
     "ExecutionPostureLevel",

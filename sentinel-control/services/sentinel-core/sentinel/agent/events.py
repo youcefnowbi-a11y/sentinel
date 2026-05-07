@@ -84,6 +84,7 @@ class AgentEventType(StrEnum):
     WORKSPACE_SNAPSHOT_CREATED = "workspace_snapshot_created"
     WORKSPACE_BROADCAST_PREPARED = "workspace_broadcast_prepared"
     WORKSPACE_DELTA_APPLIED = "workspace_delta_applied"
+    BELIEF_STATE_UPDATED = "belief_state_updated"
     EFFORT_ROUTED = "effort_routed"
     PLAN_CREATED = "plan_created"
     PLAN_REVIEWED = "plan_reviewed"
