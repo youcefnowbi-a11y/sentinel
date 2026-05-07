@@ -113,6 +113,50 @@ Tests: role planning fixtures, authority subset checks, output schema checks.
 
 Lock criteria: society plans are deterministic, bounded, and traceable.
 
+## P5D.5 Capital Operator Doctrine
+
+Purpose: lock capital-operator doctrine before the workspace starts storing
+signals and operating state.
+
+Inputs:
+
+```text
+explicit spend authority
+mission objective
+budget and risk boundaries
+capital mission signals
+P5C.5 entropy-budget doctrine
+```
+
+Outputs:
+
+```text
+RootAuthorityEnvelope doctrine
+AdaptiveOperatingEnvelope doctrine
+SignalLedger doctrine
+BudgetReallocator doctrine
+DynamicSpendPolicy doctrine
+SpendDecisionTrace doctrine
+```
+
+Authority boundary: doctrine-only. It does not make spend, trading, account
+creation, credentials, browser powers, external APIs, or agents executable.
+
+Trace events: future-only spend and adaptive envelope traces are specified by
+doctrine, not implemented.
+
+Failure modes: passive refusal despite explicit spend authority, hardcoded
+budget examples, silent authority expansion, untraceable spend, profit
+guarantees, KYC bypass, hidden subscriptions, trading without explicit trading
+authority.
+
+Tests: docs-only diff check; verify doctrine distinguishes fixed root authority
+from adaptive operating allocation and acknowledges current black-zone runtime
+limits.
+
+Lock criteria: P5D.5 docs are coherent, no runtime powers are added, and
+`CURRENT_STATE_LOCK.md` points to P5E next.
+
 ## P5E MissionGlobalWorkspace
 
 Purpose: maintain versioned shared mission cognition without context pollution.
@@ -363,6 +407,7 @@ P5A Brain L4 Architecture Audit
 P5B MissionEntropyEstimator
 P5C AgentCountController
 P5D AgentSocietyManager
+P5D.5 Capital Operator Doctrine
 P5E MissionGlobalWorkspace
 P5F BayesianBeliefState
 P5G Adaptive Debate / Sparse MoA
