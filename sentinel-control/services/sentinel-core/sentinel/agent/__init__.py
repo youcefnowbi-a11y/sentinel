@@ -10,6 +10,7 @@ from sentinel.agent.artifact_capture import (
     ArtifactCaptureStatus,
     CapturedArtifact,
 )
+from sentinel.agent.agent_count import AgentCountController, AgentCountRoute, BrainMode
 from sentinel.agent.browser import (
     BrowserCitation,
     BrowserActionRecommendation,
@@ -262,11 +263,14 @@ __all__ = [
     "ActionEnvelope",
     "ActionExecutionResult",
     "ActionPreparationResult",
+    "AgentCountController",
+    "AgentCountRoute",
     "ActionEvaluator",
     "AdversarialFinding",
     "AdversarialReviewer",
     "Assumption",
     "BrowserCitation",
+    "BrainMode",
     "BrowserActionRecommendation",
     "BrowserActionRecommendationType",
     "BrowserControlledCapabilityResult",
