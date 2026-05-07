@@ -5,110 +5,90 @@ Date: 2026-05-07
 ## Phase
 
 ```text
-current_phase = P5C_FULL_LOCKED
-previous_phase = P5B_FULL_LOCKED
+current_phase = P5C5_FULL_LOCKED
+previous_phase = P5C_FULL_LOCKED
 next_phase = P5D_AGENT_SOCIETY_MANAGER
 ```
 
-P5C is accepted as full locked. It implements an advisory AgentCountController
-only. It does not spawn agents, implement runtime multi-agent execution, start
-P5D, add a new organ, add new browser powers, or expand authority.
+P5C.5 is accepted as a first-principles Brain grounding tranche. It does not
+undo P5B/P5C. It does not spawn agents, implement runtime multi-agent execution,
+start P5D, add a new organ, add new browser powers, or expand authority.
 
 ## Verification
 
 ```text
-targeted P5C tests = 7 passed
-full sentinel-core regression = not rerun for P5C
+targeted P5B/P5C tests = 12 passed
+full sentinel-core regression = not run for P5C.5
 ```
 
 Command verified:
 
 ```bash
-python -m pytest tests/test_agent_count_controller.py -v --tb=short
+python -m pytest tests/test_agent_mission_entropy.py tests/test_agent_count_controller.py -v --tb=short
 ```
 
-Full sentinel-core was intentionally not rerun for this P5C pass because the
-user requested small targeted verification for the created/changed module.
+Full sentinel-core is intentionally not planned for this pass because P5C.5 is
+docs/contracts only and the user requested small targeted verification.
 
-## P5C Required Files
+## P5C.5 Required Files
 
-These files are required to preserve the P5C full lock:
+These files are required to preserve the P5C.5 full lock:
 
 ```text
-sentinel-control/services/sentinel-core/sentinel/agent/agent_count.py
-sentinel-control/services/sentinel-core/sentinel/agent/events.py
-sentinel-control/services/sentinel-core/sentinel/agent/__init__.py
-sentinel-control/services/sentinel-core/tests/test_agent_count_controller.py
-sentinel-control/docs/brain/P5C_AGENT_COUNT_SCORECARD.md
-sentinel-control/docs/brain/P5C_LOCK_VERDICT.md
+sentinel-control/docs/brain/P5C5_FIRST_PRINCIPLES_BRAIN_STACK.md
+sentinel-control/docs/brain/P5C5_INFORMATION_THERMODYNAMICS_CONTRACT.md
+sentinel-control/docs/brain/P5C5_ENTROPY_BUDGET_MODEL.md
+sentinel-control/docs/brain/P5C5_MATH_TO_ALGORITHM_TRANSLATION.md
+sentinel-control/docs/brain/P5C5_LOCK_VERDICT.md
 sentinel-control/docs/CURRENT_STATE_LOCK.md
 ```
 
-## P5C Locked Doctrine
-
-`AgentCountController` is advisory only.
-
-It consumes:
+## P5C.5 Locked Doctrine
 
 ```text
-MissionEntropyEstimate
+Tokens are a proxy cost, not the real objective.
+The Brain should optimize uncertainty reduction per unit cost.
+MissionEntropyEstimator v0 is a heuristic estimator, not a full physical model.
+AgentCountController v0 is advisory routing, not intelligence itself.
+Agent count is a spend decision, not the objective.
+Information gain does not grant authority.
 ```
 
-It produces deterministic outputs:
+Future modules must preserve:
 
 ```text
-recommended_agent_count
-brain_mode
-max_parallel_agents
-agent_budget
-reason
+expected_progress
++ expected_information_gain
+- execution_risk
+- authority_impact
+- token_cost
+- action_cost
+- latency_cost
 ```
 
-It may emit:
+## First-Principles Stack
 
 ```text
-AGENT_COUNT_ROUTED
+L0 Physics / information thermodynamics
+L1 Mathematics / probability and optimization
+L2 Algorithms / inference, search, adversarial games
+L3 Cognitive architecture
+L4 Sentinel code implementation
 ```
 
-It must not grant:
+## P5D Gate
+
+P5D must not create agent roles by naming convention alone. Each role must map
+to one or more first-principles needs:
 
 ```text
-tools
-actions
-paths
-browser powers
-external systems
-credentials
-payments
-channel sending
-desktop control
-```
-
-It must not spawn agents and must not implement runtime multi-agent execution.
-
-Extreme swarm is blocked by default.
-
-## P5B Required Files
-
-These files remain required to preserve the P5B full lock:
-
-```text
-sentinel-control/services/sentinel-core/sentinel/agent/mission_entropy.py
-sentinel-control/services/sentinel-core/tests/test_agent_mission_entropy.py
-sentinel-control/docs/brain/P5B_MISSION_ENTROPY_SCORECARD.md
-sentinel-control/docs/brain/P5B_LOCK_VERDICT.md
-```
-
-## P5A Required Files
-
-These files remain required to preserve the P5A full lock:
-
-```text
-sentinel-control/docs/brain/P5A_BRAIN_L4_GAP_ANALYSIS.md
-sentinel-control/docs/brain/P5A_MULTI_AGENT_BRAIN_ARCHITECTURE.md
-sentinel-control/docs/brain/P5A_SCIENCE_TO_SENTINEL_BRAIN_MAP.md
-sentinel-control/docs/brain/P5A_BRAIN_L4_ROADMAP.md
-sentinel-control/docs/brain/P5A_LOCK_VERDICT.md
+exploration
+verification
+aggregation
+contradiction
+cost control
+context compression
+authority-bound fallback
 ```
 
 ## Boundary
