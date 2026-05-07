@@ -79,6 +79,8 @@ class AgentEventType(StrEnum):
     OBJECTIVE_SCORED = "objective_scored"
     MISSION_ENTROPY_ESTIMATED = "mission_entropy_estimated"
     AGENT_COUNT_ROUTED = "agent_count_routed"
+    AGENT_SOCIETY_PLANNED = "agent_society_planned"
+    AGENT_ROLE_ASSIGNED = "agent_role_assigned"
     EFFORT_ROUTED = "effort_routed"
     PLAN_CREATED = "plan_created"
     PLAN_REVIEWED = "plan_reviewed"

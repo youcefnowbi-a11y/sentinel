@@ -11,6 +11,14 @@ from sentinel.agent.artifact_capture import (
     CapturedArtifact,
 )
 from sentinel.agent.agent_count import AgentCountController, AgentCountRoute, BrainMode
+from sentinel.agent.agent_society import (
+    AgentOutputContract,
+    AgentRoleAssignment,
+    AgentRolePurpose,
+    AgentSocietyManager,
+    AgentSocietyPlan,
+    AgentSocietyPlanStatus,
+)
 from sentinel.agent.browser import (
     BrowserCitation,
     BrowserActionRecommendation,
@@ -265,6 +273,12 @@ __all__ = [
     "ActionPreparationResult",
     "AgentCountController",
     "AgentCountRoute",
+    "AgentOutputContract",
+    "AgentRoleAssignment",
+    "AgentRolePurpose",
+    "AgentSocietyManager",
+    "AgentSocietyPlan",
+    "AgentSocietyPlanStatus",
     "ActionEvaluator",
     "AdversarialFinding",
     "AdversarialReviewer",
