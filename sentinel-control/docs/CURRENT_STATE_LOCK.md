@@ -5,20 +5,20 @@ Date: 2026-05-07
 ## Phase
 
 ```text
-current_phase = P5G_FULL_LOCKED
-previous_phase = P5F_FULL_LOCKED
-next_phase = P5H_EPISTEMIC_ACTION_EVALUATOR
+current_phase = P5H_FULL_LOCKED
+previous_phase = P5G_FULL_LOCKED
+next_phase = P5I_RESOURCEFULNESS_ENGINE_DEBROUILLE_LANE
 ```
 
-P5G is accepted as full locked. It implements `AdaptiveDebateRouter` and
-Sparse MoA planning as internal advisory Brain L4 primitives. It does not
-implement runtime agent execution, runtime multi-agent execution, external
-powers, payment/spend runtime, trading runtime, account creation, credential
-access, or authority expansion.
+P5H is accepted as full locked. It implements `EpistemicActionEvaluator` as an
+internal advisory Brain L4 action scoring primitive. It does not execute
+actions, grant authority, add external powers, implement payment/spend runtime,
+trading runtime, account creation, credential access, or authority expansion.
 
 ## Verification
 
 ```text
+targeted P5H tests = 7 passed
 targeted P5G tests = 7 passed
 targeted P5F tests = 6 passed
 targeted P5E tests = 11 passed
@@ -26,12 +26,13 @@ targeted P5B/P5C/P5D neighbor tests = 23 passed
 P5D.5 docs verification = diff check passed
 targeted P5D tests = 11 passed
 targeted P5B/P5C tests = 12 passed
-full sentinel-core regression = not rerun for P5G
+full sentinel-core regression = not rerun for P5H
 ```
 
 Commands verified:
 
 ```bash
+python -m pytest tests/test_agent_epistemic_action.py -v --tb=short
 python -m pytest tests/test_agent_adaptive_debate.py -v --tb=short
 python -m pytest tests/test_agent_bayesian_belief_state.py -v --tb=short
 python -m pytest tests/test_agent_global_workspace.py -v --tb=short
@@ -41,8 +42,47 @@ python -m pytest tests/test_agent_society_manager.py -v --tb=short
 python -m pytest tests/test_agent_mission_entropy.py tests/test_agent_count_controller.py -v --tb=short
 ```
 
-Full sentinel-core was intentionally not rerun for this P5G pass because the
+Full sentinel-core was intentionally not rerun for this P5H pass because the
 user requested targeted verification.
+
+## P5H Required Files
+
+These files are required to preserve the P5H full lock:
+
+```text
+sentinel-control/services/sentinel-core/sentinel/agent/epistemic_action.py
+sentinel-control/services/sentinel-core/sentinel/agent/events.py
+sentinel-control/services/sentinel-core/sentinel/agent/__init__.py
+sentinel-control/services/sentinel-core/tests/test_agent_epistemic_action.py
+sentinel-control/docs/brain/P5H_EPISTEMIC_ACTION_EVALUATOR_SCORECARD.md
+sentinel-control/docs/brain/P5H_LOCK_VERDICT.md
+sentinel-control/docs/CURRENT_STATE_LOCK.md
+```
+
+## P5H Locked Doctrine
+
+`EpistemicActionEvaluator` is advisory only.
+
+It produces:
+
+```text
+EpistemicActionScore
+expected_progress
+expected_information_gain
+risk_penalty
+cost_penalty
+authority_impact
+total_action_value
+```
+
+It may emit:
+
+```text
+EPISTEMIC_ACTION_SCORED
+```
+
+Action value never authorizes execution. Unsafe high-information actions remain
+blocked or proposal-only outside this evaluator.
 
 ## P5G Required Files
 

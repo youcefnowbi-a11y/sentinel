@@ -88,6 +88,7 @@ class AgentEventType(StrEnum):
     DEBATE_ROUTED = "debate_routed"
     MOA_LAYER_COMPLETED = "moa_layer_completed"
     DEBATE_AGGREGATED = "debate_aggregated"
+    EPISTEMIC_ACTION_SCORED = "epistemic_action_scored"
     EFFORT_ROUTED = "effort_routed"
     PLAN_CREATED = "plan_created"
     PLAN_REVIEWED = "plan_reviewed"

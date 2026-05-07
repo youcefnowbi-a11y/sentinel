@@ -21,6 +21,7 @@ from sentinel.agent.agent_society import (
 )
 from sentinel.agent.belief_state import BayesianBeliefState, Belief, BeliefUpdate, ContradictionSupport, EvidenceSupport
 from sentinel.agent.adaptive_debate import AdaptiveDebateRouter, DebateAggregationPlan, DebateRolePlan, DebateRoute, SparseMoAPlan
+from sentinel.agent.epistemic_action import EpistemicActionEvaluator, EpistemicActionScore
 from sentinel.agent.workspace import (
     BroadcastSlice,
     MissionGlobalWorkspace,
@@ -422,6 +423,8 @@ __all__ = [
     "ExecutionPosture",
     "ExecutionPostureLevel",
     "ExecutionPosturePolicy",
+    "EpistemicActionEvaluator",
+    "EpistemicActionScore",
     "EvalCase",
     "EvalCaseResult",
     "EvalCheckKind",
