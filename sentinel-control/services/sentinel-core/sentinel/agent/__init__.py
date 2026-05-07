@@ -22,6 +22,15 @@ from sentinel.agent.agent_society import (
 from sentinel.agent.belief_state import BayesianBeliefState, Belief, BeliefUpdate, ContradictionSupport, EvidenceSupport
 from sentinel.agent.adaptive_debate import AdaptiveDebateRouter, DebateAggregationPlan, DebateRolePlan, DebateRoute, SparseMoAPlan
 from sentinel.agent.epistemic_action import EpistemicActionEvaluator, EpistemicActionScore
+from sentinel.agent.resourcefulness import (
+    AuthorityExtensionProposal,
+    DebrouilleLevel,
+    FallbackPlanSet,
+    PartialSuccessReport,
+    ResourcefulnessDecision,
+    ResourcefulnessEngine,
+    ToolSubstitutionDecision,
+)
 from sentinel.agent.workspace import (
     BroadcastSlice,
     MissionGlobalWorkspace,
@@ -299,6 +308,7 @@ __all__ = [
     "AdversarialReviewer",
     "AdaptiveDebateRouter",
     "Assumption",
+    "AuthorityExtensionProposal",
     "BrowserCitation",
     "BrainMode",
     "BrowserActionRecommendation",
@@ -410,6 +420,7 @@ __all__ = [
     "DebateAggregationPlan",
     "DebateRolePlan",
     "DebateRoute",
+    "DebrouilleLevel",
     "EvidenceChain",
     "EvidenceChainBuilder",
     "EvidenceChainReviewer",
@@ -437,6 +448,7 @@ __all__ = [
     "EffortRoute",
     "EffortRouter",
     "Fact",
+    "FallbackPlanSet",
     "Hypothesis",
     "HypothesisGenerator",
     "HypothesisStatus",
@@ -470,6 +482,7 @@ __all__ = [
     "PerceptionTarget",
     "PerceptionText",
     "PerceptionTextSource",
+    "PartialSuccessReport",
     "PlaywrightReadOnlyRenderer",
     "PublicUrlDecision",
     "PublicUrlDecisionStatus",
@@ -480,6 +493,8 @@ __all__ = [
     "RepairDecision",
     "RepairDecisionType",
     "RepairInstruction",
+    "ResourcefulnessDecision",
+    "ResourcefulnessEngine",
     "ReviewFinding",
     "ReviewLoop",
     "RuntimeCertificationGate",
@@ -496,6 +511,7 @@ __all__ = [
     "ToolCallParseStatus",
     "ToolCallProtocol",
     "ToolSelector",
+    "ToolSubstitutionDecision",
     "ToolIntentCompilationResult",
     "ToolIntentCompilationStage",
     "ToolIntentCompilationStatus",

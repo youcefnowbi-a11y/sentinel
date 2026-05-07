@@ -5,19 +5,21 @@ Date: 2026-05-07
 ## Phase
 
 ```text
-current_phase = P5H_FULL_LOCKED
-previous_phase = P5G_FULL_LOCKED
-next_phase = P5I_RESOURCEFULNESS_ENGINE_DEBROUILLE_LANE
+current_phase = P5I_FULL_LOCKED
+previous_phase = P5H_FULL_LOCKED
+next_phase = P5J_SKILL_PROCEDURE_GRAPH
 ```
 
-P5H is accepted as full locked. It implements `EpistemicActionEvaluator` as an
-internal advisory Brain L4 action scoring primitive. It does not execute
-actions, grant authority, add external powers, implement payment/spend runtime,
-trading runtime, account creation, credential access, or authority expansion.
+P5I is accepted as full locked. It implements `ResourcefulnessEngine` /
+DebrouilleLane as an internal advisory Brain L4 fallback primitive. It does not
+execute actions, activate authority extensions, add external powers, implement
+payment/spend runtime, trading runtime, account creation, credential access, or
+authority expansion.
 
 ## Verification
 
 ```text
+targeted P5I tests = 10 passed
 targeted P5H tests = 7 passed
 targeted P5G tests = 7 passed
 targeted P5F tests = 6 passed
@@ -26,12 +28,13 @@ targeted P5B/P5C/P5D neighbor tests = 23 passed
 P5D.5 docs verification = diff check passed
 targeted P5D tests = 11 passed
 targeted P5B/P5C tests = 12 passed
-full sentinel-core regression = not rerun for P5H
+full sentinel-core regression = not rerun for P5I
 ```
 
 Commands verified:
 
 ```bash
+python -m pytest tests/test_agent_resourcefulness_engine.py -v --tb=short
 python -m pytest tests/test_agent_epistemic_action.py -v --tb=short
 python -m pytest tests/test_agent_adaptive_debate.py -v --tb=short
 python -m pytest tests/test_agent_bayesian_belief_state.py -v --tb=short
@@ -42,8 +45,49 @@ python -m pytest tests/test_agent_society_manager.py -v --tb=short
 python -m pytest tests/test_agent_mission_entropy.py tests/test_agent_count_controller.py -v --tb=short
 ```
 
-Full sentinel-core was intentionally not rerun for this P5H pass because the
+Full sentinel-core was intentionally not rerun for this P5I pass because the
 user requested targeted verification.
+
+## P5I Required Files
+
+These files are required to preserve the P5I full lock:
+
+```text
+sentinel-control/services/sentinel-core/sentinel/agent/resourcefulness.py
+sentinel-control/services/sentinel-core/sentinel/agent/events.py
+sentinel-control/services/sentinel-core/sentinel/agent/__init__.py
+sentinel-control/services/sentinel-core/tests/test_agent_resourcefulness_engine.py
+sentinel-control/docs/brain/P5I_RESOURCEFULNESS_ENGINE_SCORECARD.md
+sentinel-control/docs/brain/P5I_LOCK_VERDICT.md
+sentinel-control/docs/CURRENT_STATE_LOCK.md
+```
+
+## P5I Locked Doctrine
+
+`ResourcefulnessEngine` is advisory only.
+
+It produces:
+
+```text
+ResourcefulnessDecision
+DebrouilleLevel D0-D5
+FallbackPlanSet
+ToolSubstitutionDecision
+PartialSuccessReport
+AuthorityExtensionProposal
+```
+
+It may emit:
+
+```text
+RESOURCEFULNESS_ROUTED
+FALLBACK_PLAN_CREATED
+TOOL_SUBSTITUTION_PROPOSED
+PARTIAL_SUCCESS_DECLARED
+AUTHORITY_EXTENSION_PROPOSED
+```
+
+AuthorityExtensionProposal is proposal-only and cannot activate new authority.
 
 ## P5H Required Files
 
