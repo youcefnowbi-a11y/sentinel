@@ -94,6 +94,7 @@ class AgentEventType(StrEnum):
     TOOL_SUBSTITUTION_PROPOSED = "tool_substitution_proposed"
     PARTIAL_SUCCESS_DECLARED = "partial_success_declared"
     AUTHORITY_EXTENSION_PROPOSED = "authority_extension_proposed"
+    SKILL_PROCEDURE_MATCHED = "skill_procedure_matched"
     EFFORT_ROUTED = "effort_routed"
     PLAN_CREATED = "plan_created"
     PLAN_REVIEWED = "plan_reviewed"

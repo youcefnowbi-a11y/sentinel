@@ -5,20 +5,20 @@ Date: 2026-05-07
 ## Phase
 
 ```text
-current_phase = P5I_FULL_LOCKED
-previous_phase = P5H_FULL_LOCKED
-next_phase = P5J_SKILL_PROCEDURE_GRAPH
+current_phase = P5J_FULL_LOCKED
+previous_phase = P5I_FULL_LOCKED
+next_phase = P5K_BRAINBENCH
 ```
 
-P5I is accepted as full locked. It implements `ResourcefulnessEngine` /
-DebrouilleLane as an internal advisory Brain L4 fallback primitive. It does not
-execute actions, activate authority extensions, add external powers, implement
-payment/spend runtime, trading runtime, account creation, credential access, or
-authority expansion.
+P5J is accepted as full locked. It implements `SkillProcedureGraph` as an
+internal advisory Brain L4 procedure primitive. It does not execute procedures,
+grant authority, add external powers, implement payment/spend runtime, trading
+runtime, account creation, credential access, or authority expansion.
 
 ## Verification
 
 ```text
+targeted P5J tests = 6 passed
 targeted P5I tests = 10 passed
 targeted P5H tests = 7 passed
 targeted P5G tests = 7 passed
@@ -28,12 +28,13 @@ targeted P5B/P5C/P5D neighbor tests = 23 passed
 P5D.5 docs verification = diff check passed
 targeted P5D tests = 11 passed
 targeted P5B/P5C tests = 12 passed
-full sentinel-core regression = not rerun for P5I
+full sentinel-core regression = not rerun for P5J
 ```
 
 Commands verified:
 
 ```bash
+python -m pytest tests/test_agent_skill_procedure_graph.py -v --tb=short
 python -m pytest tests/test_agent_resourcefulness_engine.py -v --tb=short
 python -m pytest tests/test_agent_epistemic_action.py -v --tb=short
 python -m pytest tests/test_agent_adaptive_debate.py -v --tb=short
@@ -45,8 +46,47 @@ python -m pytest tests/test_agent_society_manager.py -v --tb=short
 python -m pytest tests/test_agent_mission_entropy.py tests/test_agent_count_controller.py -v --tb=short
 ```
 
-Full sentinel-core was intentionally not rerun for this P5I pass because the
+Full sentinel-core was intentionally not rerun for this P5J pass because the
 user requested targeted verification.
+
+## P5J Required Files
+
+These files are required to preserve the P5J full lock:
+
+```text
+sentinel-control/services/sentinel-core/sentinel/agent/skill_procedure.py
+sentinel-control/services/sentinel-core/sentinel/agent/events.py
+sentinel-control/services/sentinel-core/sentinel/agent/__init__.py
+sentinel-control/services/sentinel-core/tests/test_agent_skill_procedure_graph.py
+sentinel-control/docs/brain/P5J_SKILL_PROCEDURE_GRAPH_SCORECARD.md
+sentinel-control/docs/brain/P5J_LOCK_VERDICT.md
+sentinel-control/docs/CURRENT_STATE_LOCK.md
+```
+
+## P5J Locked Doctrine
+
+`SkillProcedureGraph` is advisory only.
+
+It produces:
+
+```text
+SkillProcedure
+SkillProcedureMatch
+ProcedurePrecondition
+RequiredAuthority
+CanonicalStep
+SuccessProof
+KnownFailureMode
+```
+
+It may emit:
+
+```text
+SKILL_PROCEDURE_MATCHED
+```
+
+Skill memory recommends procedures, but never grants authority or starts
+execution.
 
 ## P5I Required Files
 
