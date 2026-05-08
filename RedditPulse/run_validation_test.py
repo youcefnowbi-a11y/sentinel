@@ -1,3 +1,4 @@
+from pathlib import Path
 import subprocess, sys, os, json, requests, uuid
 
 SUPABASE_URL = "https://wpdtgfashbtlkdcuachh.supabase.co"
@@ -8,62 +9,70 @@ IDEA         = ("AI-powered code review tool for solo developers and small teams
                 "requests, catches bugs, suggests improvements, and explains why "
                 "changes matter, without needing a team member to review")
 
-# Read service key from .env.local
-SERVICE_KEY = ""
-with open("app/.env.local") as f:
-    for line in f:
+def load_service_key(env_path: Path = Path("app/.env.local")) -> str:
+    if not env_path.exists():
+        raise FileNotFoundError(f"{env_path} is required for this live validation smoke test.")
+
+    for line in env_path.read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if line.startswith("SUPABASE_SERVICE_ROLE_KEY="):
-            SERVICE_KEY = line.split("=", 1)[1]
-            break
+            return line.split("=", 1)[1]
+    raise RuntimeError("SUPABASE_SERVICE_ROLE_KEY was not found in app/.env.local.")
 
-headers = {
-    "apikey": SERVICE_KEY,
-    "Authorization": f"Bearer {SERVICE_KEY}",
-    "Content-Type": "application/json",
-    "Prefer": "return=minimal",
-}
 
-print(f"[OK] user_id = {USER_ID}")
-print(f"[OK] val_id  = {VAL_ID}")
+def main() -> int:
+    service_key = load_service_key()
+    headers = {
+        "apikey": service_key,
+        "Authorization": f"Bearer {service_key}",
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal",
+    }
 
-# Insert validation row
-print(f"[DB] Inserting validation row...")
-r = requests.post(
-    SUPABASE_URL + "/rest/v1/idea_validations",
-    json={"id": VAL_ID, "user_id": USER_ID, "idea_text": IDEA, "model": "multi-brain", "status": "queued"},
-    headers=headers,
-    timeout=10,
-)
-print(f"[DB] Insert: {r.status_code} {r.text[:100]}")
-if r.status_code not in (200, 201):
-    print("[FATAL] Insert failed, aborting.")
-    sys.exit(1)
+    print(f"[OK] user_id = {USER_ID}")
+    print(f"[OK] val_id  = {VAL_ID}")
 
-# Write config
-config = {"validation_id": VAL_ID, "idea": IDEA, "user_id": USER_ID}
-with open("test_config.json", "w") as f:
-    json.dump(config, f)
+    print("[DB] Inserting validation row...")
+    response = requests.post(
+        SUPABASE_URL + "/rest/v1/idea_validations",
+        json={"id": VAL_ID, "user_id": USER_ID, "idea_text": IDEA, "model": "multi-brain", "status": "queued"},
+        headers=headers,
+        timeout=10,
+    )
+    print(f"[DB] Insert: {response.status_code} {response.text[:100]}")
+    if response.status_code not in (200, 201):
+        print("[FATAL] Insert failed, aborting.")
+        return 1
 
-print(f"\n[>>>] Launching validation...\n{'='*60}")
+    config = {"validation_id": VAL_ID, "idea": IDEA, "user_id": USER_ID}
+    with open("test_config.json", "w", encoding="utf-8") as f:
+        json.dump(config, f)
 
-env = os.environ.copy()
-env["SUPABASE_URL"]         = SUPABASE_URL
-env["SUPABASE_KEY"]         = SERVICE_KEY
-env["SUPABASE_SERVICE_KEY"] = SERVICE_KEY
-env["PYTHONIOENCODING"]     = "utf-8"
+    print(f"\n[>>>] Launching validation...\n{'='*60}")
 
-proc = subprocess.Popen(
-    [sys.executable, "validate_idea.py", "--config-file", "test_config.json"],
-    env=env,
-    stdout=subprocess.PIPE,
-    stderr=subprocess.STDOUT,
-    text=True,
-    bufsize=1,
-)
+    env = os.environ.copy()
+    env["SUPABASE_URL"] = SUPABASE_URL
+    env["SUPABASE_KEY"] = service_key
+    env["SUPABASE_SERVICE_KEY"] = service_key
+    env["PYTHONIOENCODING"] = "utf-8"
 
-for line in proc.stdout:
-    print(line, end="", flush=True)
+    proc = subprocess.Popen(
+        [sys.executable, "validate_idea.py", "--config-file", "test_config.json"],
+        env=env,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        bufsize=1,
+    )
 
-proc.wait()
-print(f"\n{'='*60}\n[DONE] Exit code: {proc.returncode}")
+    if proc.stdout is not None:
+        for line in proc.stdout:
+            print(line, end="", flush=True)
+
+    proc.wait()
+    print(f"\n{'='*60}\n[DONE] Exit code: {proc.returncode}")
+    return int(proc.returncode)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

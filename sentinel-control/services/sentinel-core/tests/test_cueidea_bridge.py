@@ -1,4 +1,4 @@
-import pytest
+import asyncio
 
 from sentinel.cueidea_bridge import CueIdeaBridge, normalize_validation_response
 from sentinel.shared.enums import EvidenceType
@@ -76,14 +76,16 @@ def test_normalize_validation_response_maps_direct_adjacent_and_wtp():
     assert result.trends[0].keyword == "invoice automation"
 
 
-@pytest.mark.asyncio
-async def test_bridge_uses_transport_and_returns_normalized_result():
-    bridge = CueIdeaBridge(FakeTransport())
-    result = await bridge.validate_idea("AI invoice chasing")
-    competitors = await bridge.get_competitors("AI invoice chasing")
-    trends = await bridge.get_trends("AI invoice chasing")
+def test_bridge_uses_transport_and_returns_normalized_result():
+    async def run():
+        bridge = CueIdeaBridge(FakeTransport())
+        result = await bridge.validate_idea("AI invoice chasing")
+        competitors = await bridge.get_competitors("AI invoice chasing")
+        trends = await bridge.get_trends("AI invoice chasing")
 
-    assert result.evidence[0].metadata["proof_tier"] == "direct"
-    assert competitors[0].gap.startswith("Tracks invoices")
-    assert trends[0].direction == "growing"
+        assert result.evidence[0].metadata["proof_tier"] == "direct"
+        assert competitors[0].gap.startswith("Tracks invoices")
+        assert trends[0].direction == "growing"
+
+    asyncio.run(run())
 

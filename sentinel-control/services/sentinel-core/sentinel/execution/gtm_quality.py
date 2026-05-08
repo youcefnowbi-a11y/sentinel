@@ -18,11 +18,16 @@ MAJOR_SECTIONS = (
     "outreach",
     "landing",
     "roadmap",
+    "prospect_sources",
 )
 
 GENERIC_TERMS = (
     "small businesses",
     "startups",
+    "founders",
+    "creators",
+    "users",
+    "teams",
     "everyone",
     "anyone",
     "all companies",
@@ -55,6 +60,7 @@ class GTMPackQualityInput(BaseModel):
     outreach: str = ""
     landing: str = ""
     roadmap: str = ""
+    prospect_sources: str = ""
     evidence_refs: dict[str, list[str]] = Field(default_factory=dict)
     evidence_gaps: dict[str, str] = Field(default_factory=dict)
 
@@ -123,9 +129,16 @@ def _score_text(name: str, value: str, pack: GTMPackQualityInput, min_words: int
 
 def _score_icp(pack: GTMPackQualityInput) -> GTMSectionScore:
     score = _score_text("icp", pack.icp, pack, min_words=14)
-    if not any(token in pack.icp.lower() for token in ("with", "who", "that", "spend", "managing", "running")):
+    value = pack.icp.lower()
+    if pack.evidence_gaps.get("icp"):
+        score.score = min(score.score, 62)
+        score.message = "ICP weakness is explicitly marked"
+    elif not any(token in value for token in ("with", "who", "that", "spend", "managing", "running", "freelance", "agency", "consultant", "designer")):
         score.score = max(0, score.score - 18)
         score.message = f"{score.message}; lacks buyer constraints"
+    if any(re.search(rf"\b{re.escape(term)}\b", value) for term in ("founders", "businesses", "startups", "creators", "users")) and not any(token in value for token in ("freelance", "agency", "consultant", "designer", "operator")):
+        score.score = max(0, score.score - 25)
+        score.message = f"{score.message}; ICP too broad"
     score.passed = score.score >= 70
     return score
 
@@ -136,11 +149,11 @@ def _score_wtp(pack: GTMPackQualityInput) -> GTMSectionScore:
     if not pack.wtp and not pack.evidence_gaps.get("wtp"):
         score.score = 0
         score.message = "missing WTP section and no explicit evidence_gap"
+    elif pack.evidence_gaps.get("wtp"):
+        score.score = min(score.score, 62)
+        score.message = "WTP weakness is explicitly marked"
     elif any(token in value for token in ("would pay", "willingness", "budget", "pricing", "$", "/mo", "paid")):
         score.score = min(100, score.score + 15)
-    elif pack.evidence_gaps.get("wtp"):
-        score.score = max(score.score, 62)
-        score.message = "WTP weakness is explicitly marked"
     else:
         score.score = max(0, score.score - 25)
         score.message = f"{score.message}; weak WTP language"
@@ -151,11 +164,19 @@ def _score_wtp(pack: GTMPackQualityInput) -> GTMSectionScore:
 def _score_competitor_gap(pack: GTMPackQualityInput) -> GTMSectionScore:
     score = _score_text("competitor_gap", pack.competitor_gap, pack, min_words=10)
     value = pack.competitor_gap.lower()
+    if pack.evidence_gaps.get("competitor_gap"):
+        score.score = min(score.score, 62)
+        score.message = "Competitor gap weakness is explicitly marked"
+        score.passed = False
+        return score
     if any(phrase in value for phrase in ("bad", "better", "not good")) and not any(token in value for token in ("because", "miss", "lack", "without", "but")):
         score.score = max(0, score.score - 35)
         score.message = f"{score.message}; not actionable"
     if any(token in value for token in ("miss", "lack", "without", "but", "wedge", "gap")):
         score.score = min(100, score.score + 10)
+    if not any(token in value for token in ("alternative", "competitor", "tracker", "portal", "tool", "asana", "invoice", "current", "manual")):
+        score.score = max(0, score.score - 18)
+        score.message = f"{score.message}; no named alternative class"
     score.passed = score.score >= 70
     return score
 
@@ -183,6 +204,9 @@ def _score_outreach(pack: GTMPackQualityInput) -> GTMSectionScore:
     elif not has_opt_out:
         score.score = max(0, score.score - 20)
         score.message = f"{score.message}; missing opt-out language"
+    if not any(token in value for token in ("pain", "trigger", "late", "overdue", "awkward", "manual", "missing", "client", "invoice", "launch", "feedback")):
+        score.score = max(0, score.score - 18)
+        score.message = f"{score.message}; missing real pain or trigger"
     if any(token in value for token in ("i saw", "discussing", "testing", "feedback")):
         score.score = min(100, score.score + 10)
     score.passed = score.score >= 70
@@ -214,6 +238,21 @@ def _score_roadmap(pack: GTMPackQualityInput) -> GTMSectionScore:
     return score
 
 
+def _score_prospect_sources(pack: GTMPackQualityInput) -> GTMSectionScore:
+    score = _score_text("prospect_sources", pack.prospect_sources, pack, min_words=8)
+    value = pack.prospect_sources.lower()
+    if pack.evidence_gaps.get("communities") or pack.evidence_gaps.get("prospect_sources"):
+        score.score = min(score.score, 62)
+        score.message = "Prospect source weakness is explicitly marked"
+    elif any(token in value for token in ("reddit", "subreddit", "forum", "discord", "slack", "linkedin", "community", "review", "g2", "capterra")):
+        score.score = min(100, score.score + 10)
+    else:
+        score.score = max(0, score.score - 25)
+        score.message = f"{score.message}; prospect source too vague"
+    score.passed = score.score >= 70
+    return score
+
+
 def evaluate_gtm_pack_quality(pack: GTMPackQualityInput) -> GTMPackQualityReport:
     section_scores = [
         _score_icp(pack),
@@ -223,6 +262,7 @@ def evaluate_gtm_pack_quality(pack: GTMPackQualityInput) -> GTMPackQualityReport
         _score_outreach(pack),
         _score_landing(pack),
         _score_roadmap(pack),
+        _score_prospect_sources(pack),
     ]
     blockers = [
         f"{section.name}: {section.message}"
@@ -269,6 +309,31 @@ def input_from_gtm_pack(pack: GTMPack) -> GTMPackQualityInput:
         section = by_filename.get(filename)
         return section.evidence_refs if section else []
 
+    def gaps(section_name: str, filename: str) -> str | None:
+        value = content(filename)
+        marker = f"EVIDENCE_GAP: {section_name}"
+        if marker in value:
+            match = re.search(rf"{re.escape(marker)}\s*-\s*(.+)", value)
+            return match.group(1).strip() if match else f"{section_name} evidence gap"
+        if "Evidence gap" in value and section_name in value.lower():
+            return f"{section_name} evidence gap"
+        return None
+
+    evidence_gaps = {
+        name: gap
+        for name, gap in {
+            "icp": gaps("icp", "02_ICP.md"),
+            "wtp": gaps("wtp", "09_DECISION_RULES.md"),
+            "competitor_gap": gaps("competitor_gap", "03_COMPETITOR_GAPS.md"),
+            "positioning": gaps("positioning", "04_LANDING_PAGE_COPY.md"),
+            "outreach": gaps("outreach", "05_OUTREACH_MESSAGES.md"),
+            "landing": gaps("landing", "04_LANDING_PAGE_COPY.md"),
+            "roadmap": gaps("roadmap", "07_7_DAY_ROADMAP.md"),
+            "prospect_sources": gaps("communities", "10_PROSPECT_SOURCES.md") or gaps("prospect_sources", "10_PROSPECT_SOURCES.md"),
+        }.items()
+        if gap
+    }
+
     return GTMPackQualityInput(
         icp=content("02_ICP.md"),
         wtp=content("09_DECISION_RULES.md"),
@@ -277,6 +342,7 @@ def input_from_gtm_pack(pack: GTMPack) -> GTMPackQualityInput:
         outreach=content("05_OUTREACH_MESSAGES.md"),
         landing=content("04_LANDING_PAGE_COPY.md"),
         roadmap=content("07_7_DAY_ROADMAP.md"),
+        prospect_sources=content("10_PROSPECT_SOURCES.md"),
         evidence_refs={
             "icp": refs("02_ICP.md"),
             "wtp": refs("09_DECISION_RULES.md"),
@@ -285,5 +351,7 @@ def input_from_gtm_pack(pack: GTMPack) -> GTMPackQualityInput:
             "outreach": refs("05_OUTREACH_MESSAGES.md"),
             "landing": refs("04_LANDING_PAGE_COPY.md"),
             "roadmap": refs("07_7_DAY_ROADMAP.md"),
+            "prospect_sources": refs("10_PROSPECT_SOURCES.md"),
         },
+        evidence_gaps=evidence_gaps,
     )

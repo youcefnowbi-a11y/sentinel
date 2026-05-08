@@ -1,0 +1,95 @@
+{
+  "id": "cue_val_s2_icp_comm_001",
+  "validation_id": "cue_val_s2_icp_comm_001",
+  "idea_text": "Invoice reminder tone assistant for freelance brand designers",
+  "status": "completed",
+  "report": {
+    "id": "cue_val_s2_icp_comm_001",
+    "idea_text": "Invoice reminder tone assistant for freelance brand designers",
+    "verdict": "build",
+    "confidence": 88,
+    "executive_summary": "Freelance brand designers in reachable communities show direct pain, WTP, competitor complaints, and clear objections about sounding robotic.",
+    "market_analysis": {
+      "evidence": [
+        {
+          "id": "s2_icp_pain_001",
+          "source": "reddit",
+          "platform": "reddit",
+          "subreddit": "freelance",
+          "url": "https://example.com/r/freelance/invoice-tone",
+          "title": "I hate chasing invoices without sounding rude",
+          "summary": "Direct pain: freelance brand designers spend Friday afternoons writing awkward invoice reminders.",
+          "quote": "Every reminder has to be firm but not ruin the client relationship.",
+          "directness_tier": "direct",
+          "confidence": "high",
+          "icp_segment": "freelance brand designers with 5-25 recurring clients",
+          "community": "r/freelance",
+          "buying_trigger": "awkward overdue invoice reminders",
+          "created_at": "2026-04-25T09:00:00Z",
+          "relevance_score": 0.96
+        },
+        {
+          "id": "s2_icp_comm_001",
+          "source": "designer_forum",
+          "platform": "forum",
+          "community": "Designer Hangout billing threads",
+          "url": "https://example.com/designer-hangout/billing",
+          "title": "Designers swap invoice follow-up scripts",
+          "summary": "Reachable community: designers share reminder scripts and discuss client relationship risk.",
+          "directness_tier": "direct",
+          "confidence": "medium",
+          "icp_segment": "freelance brand designers with recurring client retainers",
+          "created_at": "2026-04-24T08:00:00Z",
+          "relevance_score": 0.88
+        }
+      ]
+    },
+    "wtp_evidence": [
+      {
+        "id": "s2_icp_wtp_001",
+        "source": "cueidea_interview",
+        "platform": "cueidea_interview",
+        "url": "https://example.com/interviews/s2-icp-wtp-001",
+        "title": "Designer accepts paid pilot",
+        "summary": "Direct WTP: a freelance brand designer accepted a $49 paid pilot for tone-aware overdue invoice reminders.",
+        "quote": "I would pay $49 for a pilot if it writes reminders in my tone.",
+        "directness_tier": "direct",
+        "confidence": "high",
+        "icp_segment": "freelance brand designers with 5-25 recurring clients",
+        "created_at": "2026-04-25T12:00:00Z",
+        "relevance_score": 0.97
+      }
+    ],
+    "competitor_complaints": [
+      {
+        "id": "s2_icp_comp_001",
+        "source": "g2",
+        "platform": "review_site",
+        "url": "https://example.com/g2/invoice-reminders-tone",
+        "title": "Invoice tools sound robotic",
+        "summary": "Competitor complaint: generic invoice reminder tools lack designer-specific tone and client relationship context.",
+        "competitor": "InvoiceTool",
+        "alternative": "generic invoice trackers",
+        "objection": "robotic tone damages client relationship",
+        "directness_tier": "direct",
+        "confidence": "high",
+        "created_at": "2026-04-20T08:00:00Z",
+        "relevance_score": 0.91
+      }
+    ],
+    "competition_landscape": {
+      "direct_competitors": [
+        {
+          "name": "InvoiceTool",
+          "gap": "Reminder automation without tone control.",
+          "evidence_refs": ["s2_icp_comp_001"]
+        }
+      ]
+    },
+    "trends_data": {
+      "keyword": "invoice reminders freelancers",
+      "overall_trend": "growing",
+      "confidence": 0.78
+    }
+  }
+}

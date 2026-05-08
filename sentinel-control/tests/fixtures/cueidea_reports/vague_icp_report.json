@@ -1,0 +1,73 @@
+{
+  "id": "cue_val_s2_vague_icp_001",
+  "validation_id": "cue_val_s2_vague_icp_001",
+  "idea_text": "AI dashboard for startup metrics",
+  "status": "completed",
+  "report": {
+    "id": "cue_val_s2_vague_icp_001",
+    "idea_text": "AI dashboard for startup metrics",
+    "verdict": "research_more",
+    "confidence": 52,
+    "executive_summary": "The report has generic startup interest and one WTP-like quote, but the buyer segment is vague and not reachable enough for ready status.",
+    "market_analysis": {
+      "evidence": [
+        {
+          "id": "s2_vague_pain_001",
+          "source": "startup_forum",
+          "platform": "forum",
+          "url": "https://example.com/startup-forum/dashboard",
+          "title": "Founders want better metrics",
+          "summary": "Broad pain: founders and businesses want better startup metrics dashboards.",
+          "quote": "Metrics are everywhere and dashboards are messy.",
+          "directness_tier": "direct",
+          "confidence": "medium",
+          "icp_segment": "founders",
+          "community": "startup forum",
+          "created_at": "2026-04-25T09:00:00Z",
+          "relevance_score": 0.58
+        }
+      ]
+    },
+    "wtp_evidence": [
+      {
+        "id": "s2_vague_wtp_001",
+        "source": "startup_forum",
+        "platform": "forum",
+        "url": "https://example.com/startup-forum/dashboard-wtp",
+        "title": "Would pay for better dashboards",
+        "summary": "Weak WTP: a founder says they might pay for a better dashboard but gives no segment, budget owner, or trigger.",
+        "quote": "I might pay if it was better than what we have.",
+        "directness_tier": "direct",
+        "confidence": "medium",
+        "icp_segment": "businesses",
+        "created_at": "2026-04-25T10:00:00Z",
+        "relevance_score": 0.55
+      }
+    ],
+    "competitor_complaints": [
+      {
+        "id": "s2_vague_comp_001",
+        "source": "review_site",
+        "platform": "review_site",
+        "url": "https://example.com/reviews/generic-dashboard",
+        "title": "Analytics dashboards are generic",
+        "summary": "Competitor complaint is broad and not tied to a specific ICP or buying trigger.",
+        "competitor": "GenericAnalytics",
+        "alternative": "generic analytics tools",
+        "directness_tier": "adjacent",
+        "confidence": "low",
+        "created_at": "2026-04-20T10:00:00Z",
+        "relevance_score": 0.45
+      }
+    ],
+    "competition_landscape": {
+      "direct_competitors": [
+        {
+          "name": "GenericAnalytics",
+          "gap": "Broad dashboard complaint without a segment-specific wedge.",
+          "evidence_refs": ["s2_vague_comp_001"]
+        }
+      ]
+    }
+  }
+}

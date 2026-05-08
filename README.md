@@ -12,6 +12,70 @@ This repo contains **two apps plus one research lab**:
 
 If you are continuing development, start here. This README explains what the project is, why it exists, how the folders connect, what is production, what is research, how to run things, and what to build next.
 
+## Current Snapshot - 2026-05-08
+
+This repository is the full Sentinel working tree snapshot. It includes the
+legacy CueIdea/RedditPulse evidence product, the Sentinel Control runtime, and
+Agent Lab, which is the forensic lab used to study external agent systems before
+rewriting useful powers into Sentinel-native contracts.
+
+Current locked project compass:
+
+```text
+current_phase = ARCHITECTURE_A_TO_Z_LOCKED
+previous_phase = P5L_FULL_LOCKED
+next_phase = P6A_EXTERNAL_ORGAN_FOUNDRY
+```
+
+The active architecture lock lives here:
+
+```text
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/
+```
+
+Start with:
+
+```text
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/00_README_PROJECT_COMPASS.md
+sentinel-control/docs/CURRENT_STATE_LOCK.md
+```
+
+Brain L4 is already locked through P5L. That means Sentinel now has internal
+advisory modules for mission entropy, agent-count routing, society planning,
+workspace state, Bayesian belief updates, adaptive debate planning, epistemic
+action scoring, resourcefulness, skill procedure matching, BrainBench, and an
+integrated pre-mortem review. These modules are internal cognition only; they
+do not grant external powers.
+
+The next build target is P6A External Organ Foundry. P6A begins the executable
+contract layer for future external organs, but it still does not add payment
+runtime, trading runtime, account creation, credential access, browser power
+expansion, external API mutation, or production mutation.
+
+Useful current verification commands:
+
+```powershell
+cd sentinel-control/services/sentinel-core
+python -m pytest tests/test_p6_external_organ_foundry.py -v --tb=short
+python -m pytest tests/test_agent_event_bus.py tests/test_p6_external_organ_foundry.py -v --tb=short
+```
+
+Latest local P6A targeted result before this publish snapshot:
+
+```text
+P6A External Organ Foundry targeted tests = 12 passed
+P6A + event bus neighbor tests = 19 passed
+```
+
+Important governance rule:
+
+```text
+Agent Lab harvests powers.
+Sentinel rewrites them behind authority, risk, receipts, replay, kill switch,
+promotion gates, and FinalGate.
+Vendor runtime code is not imported as production runtime.
+```
+
 ## Executive Summary
 
 CueIdea/RedditPulse already validates ideas by collecting market signals, competitors, pain points, willingness-to-pay indicators, and opportunity gaps.

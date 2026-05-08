@@ -1,0 +1,8 @@
+{
+  "id": "fake_send_message_plugin",
+  "kind": "plugin_manifest",
+  "name": "Fake Send Message Channel",
+  "declared_capabilities": ["channel_adapter", "sendMessage", "external_contact"],
+  "description": "Declares a sendMessage action against a fake channel adapter.",
+  "expected_decision": "blocked"
+}

@@ -1,0 +1,147 @@
+{
+  "id": "cue_val_strong_wtp_001",
+  "validation_id": "cue_val_strong_wtp_001",
+  "idea_text": "Tone-aware invoice follow-up assistant for freelance designers",
+  "status": "completed",
+  "report": {
+    "id": "cue_val_strong_wtp_001",
+    "idea_text": "Tone-aware invoice follow-up assistant for freelance designers",
+    "verdict": "build",
+    "confidence": 84,
+    "executive_summary": "Freelance designers repeatedly report awkward unpaid invoice follow-up pain, show direct willingness to pay for relationship-aware reminders, and complain that generic invoice tools sound too robotic.",
+    "market_analysis": {
+      "pain_description": "Freelance designers lose time and client goodwill when chasing overdue invoices manually.",
+      "evidence": [
+        {
+          "id": "strong_pain_001",
+          "source": "reddit",
+          "platform": "reddit",
+          "url": "https://example.com/r/freelance/post/strong-pain-001",
+          "title": "I hate chasing unpaid invoices without sounding rude",
+          "summary": "Direct pain from freelance designers who spend hours manually chasing overdue invoices.",
+          "quote": "I spend every Friday writing payment reminders and trying not to sound annoyed.",
+          "directness_tier": "direct",
+          "confidence": "high",
+          "created_at": "2026-04-25T10:00:00Z",
+          "relevance_score": 0.96
+        },
+        {
+          "id": "strong_pain_002",
+          "source": "designer_forum",
+          "platform": "forum",
+          "url": "https://example.com/designers/thread/strong-pain-002",
+          "title": "Manual invoice reminders are draining",
+          "summary": "Direct pain from solo design studios describing manual client follow-up as a recurring workflow problem.",
+          "quote": "The money is late, but the relationship matters, so every reminder takes too much mental energy.",
+          "directness_tier": "direct",
+          "confidence": 0.88,
+          "created_at": "2026-04-24T12:30:00Z",
+          "relevance_score": 0.91
+        },
+        {
+          "id": "strong_community_001",
+          "source": "reddit",
+          "platform": "reddit",
+          "url": "https://example.com/r/freelance/search/invoice-reminders",
+          "title": "Invoice reminder threads keep resurfacing",
+          "summary": "Community signal shows repeated discussions about invoice follow-up scripts and payment reminders.",
+          "directness_tier": "supporting",
+          "confidence": "medium",
+          "created_at": "2026-04-23T09:00:00Z",
+          "relevance_score": 0.72
+        }
+      ]
+    },
+    "wtp_evidence": [
+      {
+        "id": "strong_wtp_001",
+        "source": "reddit",
+        "platform": "reddit",
+        "url": "https://example.com/r/freelance/post/strong-wtp-001",
+        "title": "Would pay for payment reminders that sound human",
+        "summary": "Direct WTP evidence: a freelance designer says they would pay $19/mo for reminders that adapt to client tone.",
+        "quote": "I would pay $19 a month if it handled reminders without making me sound robotic.",
+        "directness_tier": "direct",
+        "confidence": "high",
+        "created_at": "2026-04-25T16:00:00Z",
+        "relevance_score": 0.95
+      },
+      {
+        "id": "strong_wtp_002",
+        "source": "interview_note",
+        "platform": "cueidea_interview",
+        "url": "https://example.com/interviews/strong-wtp-002",
+        "title": "Paid pilot accepted for invoice reminder workflow",
+        "summary": "Direct paid-intent evidence: two designers accepted a $49 paid pilot for tone-aware invoice reminders.",
+        "quote": "If it saves one awkward client thread a month, $49 is fine for a pilot.",
+        "directness_tier": "direct",
+        "confidence": 0.9,
+        "created_at": "2026-04-25T18:00:00Z",
+        "relevance_score": 0.97
+      }
+    ],
+    "competitor_complaints": [
+      {
+        "id": "strong_comp_001",
+        "source": "g2",
+        "platform": "review_site",
+        "url": "https://example.com/reviews/invoice-tool-tone",
+        "title": "Competitor reminder templates are too generic",
+        "summary": "Competitor complaint: generic invoice trackers send fixed reminders but miss relationship-aware tone control.",
+        "quote": "The reminders work, but they sound like accounting software talking to my clients.",
+        "directness_tier": "direct",
+        "confidence": "high",
+        "created_at": "2026-04-20T08:00:00Z",
+        "relevance_score": 0.9
+      },
+      {
+        "id": "strong_comp_002",
+        "source": "capterra",
+        "platform": "review_site",
+        "url": "https://example.com/reviews/reminder-gap",
+        "title": "Alternative lacks client-specific follow-up",
+        "summary": "Competitor gap: alternatives lack client-specific tone, urgency, and relationship context.",
+        "directness_tier": "adjacent",
+        "confidence": "medium",
+        "created_at": "2026-04-18T08:00:00Z",
+        "relevance_score": 0.78
+      }
+    ],
+    "competition_landscape": {
+      "direct_competitors": [
+        {
+          "name": "InvoiceTool",
+          "url": "https://example.com/invoicetool",
+          "gap": "Tracks invoices but lacks relationship-aware reminder tone.",
+          "threat_level": "medium",
+          "evidence_refs": ["strong_comp_001"]
+        },
+        {
+          "name": "ReminderFlow",
+          "url": "https://example.com/reminderflow",
+          "gap": "Automates reminder timing but not designer-specific client context.",
+          "threat_level": "medium",
+          "evidence_refs": ["strong_comp_002"]
+        }
+      ]
+    },
+    "trends_data": {
+      "keyword": "invoice automation for freelancers",
+      "overall_trend": "growing",
+      "confidence": 0.74,
+      "signals": [
+        {
+          "keyword": "late invoice reminders",
+          "direction": "growing",
+          "summary": "Community discussions and search intent are rising around late invoice reminders.",
+          "confidence": 0.74,
+          "evidence_refs": ["strong_community_001"]
+        }
+      ]
+    },
+    "ideal_customer_profile": "Freelance brand and web designers with 5-25 recurring clients who manage invoices themselves and care about preserving client relationships.",
+    "pricing_strategy": "Test $19/mo self-serve and $49 paid pilot. WTP evidence comes from direct paid-intent quotes in strong_wtp_001 and strong_wtp_002.",
+    "positioning": "Tone-aware invoice follow-up for freelance designers who need to collect late payments without making client relationships awkward.",
+    "distribution_strategy": "Start with freelance design communities, invoice reminder threads, and creator business forums; use interview-first outreach only."
+  }
+}

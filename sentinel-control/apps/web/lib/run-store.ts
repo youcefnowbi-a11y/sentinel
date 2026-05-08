@@ -294,7 +294,7 @@ function buildProspectSources(idea: string, evidenceRows: EvidenceRow[], importe
   return Array.from(byKey.values()).slice(0, 12);
 }
 
-const majorQualitySections = ["icp", "wtp", "competitor_gap", "positioning", "outreach", "landing", "roadmap"] as const;
+const majorQualitySections = ["icp", "wtp", "competitor_gap", "positioning", "outreach", "landing", "roadmap", "prospect_sources"] as const;
 
 function assetContent(assets: GeneratedAssetRow[], assetType: string) {
   return assets.find((asset) => asset.assetType === assetType)?.content || "";
@@ -318,7 +318,7 @@ function scoreQualityText(name: string, value: string, refs: string[], minWords:
   const lowered = value.toLowerCase();
   if (wordCount(value) >= minWords) score += 25;
   else messages.push("too short");
-  if (refs.length > 0 || lowered.includes("evidence_gap")) score += 25;
+  if (refs.length > 0 || lowered.includes("evidence_gap") || lowered.includes("evidence gap")) score += 25;
   else messages.push("missing evidence");
   if (hasSpecificNumbers(value)) score += 10;
   if (/(small businesses|startups|everyone|anyone|all companies|businesses and startups)/i.test(value)) {
@@ -341,6 +341,11 @@ function evaluateGtmQuality(assets: GeneratedAssetRow[]): GTMPackQualityRow {
   const outreach = assetContent(assets, "outreach");
   const landing = positioning;
   const roadmap = assetContent(assets, "roadmap");
+  const prospectSources = assetContent(assets, "prospect_sources");
+  const hasEvidenceOrGap = (assetType: string) => {
+    const value = assetContent(assets, assetType).toLowerCase();
+    return assetRefs(assets, assetType).length > 0 || value.includes("evidence_gap") || value.includes("evidence gap");
+  };
 
   const sectionScores = [
     scoreQualityText("icp", icp, assetRefs(assets, "icp"), 14),
@@ -350,6 +355,7 @@ function evaluateGtmQuality(assets: GeneratedAssetRow[]): GTMPackQualityRow {
     scoreQualityText("outreach", outreach, assetRefs(assets, "outreach"), 14),
     scoreQualityText("landing", landing, assetRefs(assets, "landing_copy"), 8),
     scoreQualityText("roadmap", roadmap, assetRefs(assets, "roadmap"), 22),
+    scoreQualityText("prospect_sources", prospectSources, assetRefs(assets, "prospect_sources"), 8),
   ];
 
   for (const section of sectionScores) {
@@ -360,14 +366,21 @@ function evaluateGtmQuality(assets: GeneratedAssetRow[]): GTMPackQualityRow {
       section.name === "positioning" ? positioning :
       section.name === "outreach" ? outreach :
       section.name === "landing" ? landing :
+      section.name === "prospect_sources" ? prospectSources :
       roadmap
     ).toLowerCase();
 
-    if (section.name === "wtp" && !/(would pay|willingness|budget|pricing|\$|\/mo|paid|weak)/i.test(lowered)) {
+    if (section.name === "wtp" && /evidence_gap:\s*wtp|evidence gap/i.test(lowered)) {
+      section.score = Math.min(section.score, 62);
+      section.message = "WTP weakness is explicitly marked";
+    } else if (section.name === "wtp" && !/(would pay|willingness|budget|pricing|\$|\/mo|paid|weak)/i.test(lowered)) {
       section.score = Math.max(0, section.score - 25);
       section.message = `${section.message}; weak WTP language`;
     }
-    if (section.name === "competitor_gap" && !/(miss|lack|without|but|wedge|gap|generic)/i.test(lowered)) {
+    if (section.name === "competitor_gap" && /evidence_gap:\s*competitor_gap|evidence gap/i.test(lowered)) {
+      section.score = Math.min(section.score, 62);
+      section.message = "Competitor gap weakness is explicitly marked";
+    } else if (section.name === "competitor_gap" && !/(miss|lack|without|but|wedge|gap|generic)/i.test(lowered)) {
       section.score = Math.max(0, section.score - 20);
       section.message = `${section.message}; not actionable`;
     }
@@ -386,12 +399,21 @@ function evaluateGtmQuality(assets: GeneratedAssetRow[]): GTMPackQualityRow {
       section.score = Math.max(0, section.score - 45);
       section.message = `${section.message}; unrealistic plan`;
     }
+    if (section.name === "prospect_sources") {
+      if (/evidence_gap:\s*(communities|prospect_sources)|evidence gap/i.test(lowered)) {
+        section.score = Math.min(section.score, 62);
+        section.message = "Prospect source weakness is explicitly marked";
+      } else if (!/(reddit|subreddit|forum|discord|slack|linkedin|community|review|g2|capterra)/i.test(lowered)) {
+        section.score = Math.max(0, section.score - 25);
+        section.message = `${section.message}; prospect source too vague`;
+      }
+    }
     section.passed = section.score >= 70;
   }
 
   const missingEvidence = majorQualitySections.filter((name) => {
     const assetType = name === "competitor_gap" ? "competitor_gaps" : name === "wtp" ? "decision_rules" : name === "positioning" || name === "landing" ? "landing_copy" : name;
-    return assetRefs(assets, assetType).length === 0;
+    return !hasEvidenceOrGap(assetType);
   });
   const blockers = sectionScores.filter((section) => !section.passed).map((section) => `${section.name}: ${section.message}`);
   if (missingEvidence.length > 0) {
@@ -567,8 +589,13 @@ function buildGeneratedAssets(
   const createdAt = nowIso();
   const base = `data/generated_projects/${slug}`;
   const evidenceSummary = evidenceRows.slice(0, 8).map((row) => `- ${row.id}: ${row.summary}`).join("\n") || "- No evidence attached yet.";
-  const wtpRows = evidenceRows.filter((row) => row.details.tags.includes("wtp") || row.details.tags.includes("pricing"));
-  const gapRows = evidenceRows.filter((row) => row.details.tags.some((tag) => tag.includes("competitor")));
+  const isEvidenceBacked = Boolean(imported);
+  const wtpRows = isEvidenceBacked ? evidenceRows.filter((row) => row.details.tags.includes("wtp") || row.details.tags.includes("pricing")) : [];
+  const gapRows = isEvidenceBacked ? evidenceRows.filter((row) => row.details.tags.some((tag) => tag.includes("competitor"))) : [];
+  const hasDirectEvidence = isEvidenceBacked && evidenceRows.some((row) => row.proofTier === "direct");
+  const directEvidenceGap = hasDirectEvidence ? "" : "\n\n## Evidence gap\n\nEVIDENCE_GAP: direct_proof - Direct CueIdea evidence is missing; keep this run in sandbox or research mode.\n";
+  const wtpEvidenceGap = wtpRows.length > 0 ? "" : "\n\n## Evidence gap\n\nEVIDENCE_GAP: wtp - No WTP, pricing, budget, or paid-intent evidence is attached to this run.\n";
+  const competitorEvidenceGap = gapRows.length > 0 ? "" : "\n\n## Evidence gap\n\nEVIDENCE_GAP: competitor_gap - No competitor complaint or competitor gap evidence is attached yet.\n";
   const report = buildCueIdeaReportSummary(imported, createdAt);
   const sourceLines = prospectSources.map((source) => `- ${source.label} (${source.sourceType}): ${source.whyRelevant}`).join("\n");
 
@@ -580,7 +607,7 @@ function buildGeneratedAssets(
       filePath: `${base}/00_VERDICT.md`,
       evidenceRefs: refs,
       createdAt,
-      content: `# Executive Verdict\n\nIdea: ${idea}\n\nDecision: niche_down\n\n${report?.executiveSummary || "Build only after direct WTP proof is confirmed."}\n\n## Decision discipline\n\nBuild only after WTP and reachable ICP proof are confirmed.\n`,
+      content: `# Executive Verdict\n\nIdea: ${idea}\n\nDecision: niche_down\n\n${report?.executiveSummary || "Build only after direct WTP proof is confirmed."}${directEvidenceGap}\n\n## Decision discipline\n\nBuild only after WTP and reachable ICP proof are confirmed.\n`,
     },
     {
       id: `asset_${randomUUID().slice(0, 8)}`,
@@ -607,7 +634,7 @@ function buildGeneratedAssets(
       filePath: `${base}/03_COMPETITOR_GAPS.md`,
       evidenceRefs: gapRows.map((row) => row.id).length > 0 ? gapRows.map((row) => row.id) : refs,
       createdAt,
-      content: `# Competitor Gaps\n\n${report?.competitorLandscape || gapRows.map((row) => `- ${row.summary}`).join("\n") || "- Attach competitor complaints before a build verdict."}\n`,
+      content: `# Competitor Gaps\n\n${report?.competitorLandscape || gapRows.map((row) => `- ${row.summary}`).join("\n") || "- Attach competitor complaints before a build verdict."}${competitorEvidenceGap}\n`,
     },
     {
       id: `asset_${randomUUID().slice(0, 8)}`,
@@ -625,7 +652,7 @@ function buildGeneratedAssets(
       filePath: `${base}/05_OUTREACH_MESSAGES.md`,
       evidenceRefs: refs,
       createdAt,
-      content: "# Outreach Messages\n\nDraft only. User approval required before any external contact.\n",
+      content: "# Outreach Messages\n\nDraft only. User approval required before any external contact. Reference only verified public evidence, avoid false personalization, and include opt-out language such as: Reply stop if not relevant.\n",
     },
     {
       id: `asset_${randomUUID().slice(0, 8)}`,
@@ -661,7 +688,7 @@ function buildGeneratedAssets(
       filePath: `${base}/09_DECISION_RULES.md`,
       evidenceRefs: wtpRows.map((row) => row.id).length > 0 ? wtpRows.map((row) => row.id) : refs,
       createdAt,
-      content: `# Decision Rules\n\n${report?.pricing ? `${report.pricing}\n\n` : ""}Kill if no direct pain after 5 interviews. Pivot if pain exists but WTP stays weak. Build only if WTP and reachable ICP are proven.\n`,
+      content: `# Decision Rules\n\n${report?.pricing ? `${report.pricing}\n\n` : ""}Kill if no direct pain after 5 interviews. Pivot if pain exists but WTP stays weak. Build only if WTP and reachable ICP are proven.${wtpEvidenceGap}\n`,
     },
     {
       id: `asset_${randomUUID().slice(0, 8)}`,
@@ -1119,13 +1146,13 @@ export async function createRun(input: CreateRunInput) {
     {
       id: `trace_${randomUUID().slice(0, 8)}`,
       eventType: "run_started",
-      message: "Idea received from the web dashboard.",
+      message: "Idea received from the web dashboard in Sandbox / hypothesis mode.",
       createdAt,
     },
     {
       id: `trace_${randomUUID().slice(0, 8)}`,
       eventType: "evidence_recorded",
-      message: `${evidenceRows.length} evidence placeholders recorded for local review.`,
+      message: `${evidenceRows.length} sandbox evidence placeholders recorded for local review.`,
       createdAt,
     },
     {
@@ -1157,7 +1184,7 @@ export async function createRun(input: CreateRunInput) {
     updatedAt: createdAt,
     summary: {
       title: idea,
-      status: "Ready for approval",
+      status: "Sandbox / hypothesis mode",
       runId: id,
       startedAt: compactDate(createdAt),
       verdict: "Niche down first",
@@ -1184,9 +1211,9 @@ export async function createRun(input: CreateRunInput) {
     project: {
       id: slug,
       name: idea,
-      status: "Pack generated",
+      status: "Sandbox pack generated",
       updatedAt: compactDate(createdAt),
-      description: "Local Sentinel run generated a first-customer GTM pack and approval queue.",
+      description: "Sandbox / hypothesis mode: local Sentinel run generated a GTM pack shell and approval queue without CueIdea evidence.",
       files: assets.map((asset) => asset.title),
     },
   };
@@ -1263,7 +1290,7 @@ export async function createRunFromCueIdeaImport(imported: NormalizedCueIdeaImpo
     updatedAt: createdAt,
     summary: {
       title: idea,
-      status: "CueIdea imported",
+      status: "Evidence-backed",
       runId: id,
       startedAt: compactDate(createdAt),
       verdict: imported.verdict || verdict.replace(/_/g, " "),
@@ -1295,9 +1322,9 @@ export async function createRunFromCueIdeaImport(imported: NormalizedCueIdeaImpo
     project: {
       id: slug,
       name: idea,
-      status: "Pack generated",
+      status: "Evidence-backed pack generated",
       updatedAt: compactDate(createdAt),
-      description: `Read-only CueIdea import ${imported.validationId || "from local JSON"} converted into a Sentinel GTM pack.`,
+      description: `Evidence-backed CueIdea import ${imported.validationId || "from local JSON"} converted into a Sentinel GTM pack.`,
       files: assets.map((asset) => asset.title),
     },
   };

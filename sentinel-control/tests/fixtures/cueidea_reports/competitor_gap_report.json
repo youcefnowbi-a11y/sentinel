@@ -1,0 +1,124 @@
+{
+  "id": "cue_val_competitor_gap_001",
+  "validation_id": "cue_val_competitor_gap_001",
+  "idea_text": "Client onboarding checklist monitor for small design agencies",
+  "status": "completed",
+  "report": {
+    "id": "cue_val_competitor_gap_001",
+    "idea_text": "Client onboarding checklist monitor for small design agencies",
+    "verdict": "niche_down",
+    "confidence": 76,
+    "executive_summary": "Small design agencies show onboarding pain, paid-intent exists through tool budgets, and competitor complaints reveal a concrete gap around client-side task completion.",
+    "market_analysis": {
+      "pain_description": "Design agencies lose project momentum when clients miss onboarding assets, approvals, and intake tasks.",
+      "evidence": [
+        {
+          "id": "gap_pain_001",
+          "source": "agency_forum",
+          "platform": "forum",
+          "url": "https://example.com/agency-forum/gap-pain-001",
+          "title": "Clients keep missing onboarding steps",
+          "summary": "Direct pain: agency operators manually chase clients for onboarding assets and approvals.",
+          "quote": "Every new client needs three reminders before we get the logo files and account access.",
+          "directness_tier": "direct",
+          "confidence": "high",
+          "created_at": "2026-04-24T09:00:00Z",
+          "relevance_score": 0.9
+        },
+        {
+          "id": "gap_pain_002",
+          "source": "reddit",
+          "platform": "reddit",
+          "url": "https://example.com/r/agency/post/gap-pain-002",
+          "title": "Onboarding checklists get ignored",
+          "summary": "Direct pain: agencies say onboarding checklists fail because client-side accountability is weak.",
+          "directness_tier": "direct",
+          "confidence": "medium",
+          "created_at": "2026-04-23T11:00:00Z",
+          "relevance_score": 0.84
+        }
+      ]
+    },
+    "wtp_evidence": [
+      {
+        "id": "gap_wtp_001",
+        "source": "agency_interview",
+        "platform": "cueidea_interview",
+        "url": "https://example.com/interviews/gap-wtp-001",
+        "title": "Agency pays for client onboarding tools",
+        "summary": "WTP evidence: agency owner already pays $79/mo for project management and would pay for client-side onboarding completion tracking.",
+        "quote": "We already pay for PM tools; I would pay if it reduced onboarding chasing.",
+        "directness_tier": "direct",
+        "confidence": "medium",
+        "created_at": "2026-04-24T14:00:00Z",
+        "relevance_score": 0.86
+      }
+    ],
+    "competitor_complaints": [
+      {
+        "id": "gap_comp_001",
+        "source": "g2",
+        "platform": "review_site",
+        "url": "https://example.com/g2/pmtool-client-onboarding",
+        "title": "Project management tools lack client completion pressure",
+        "summary": "Competitor gap: PM tools track internal tasks but miss client-side onboarding accountability.",
+        "quote": "The tool tells our team what to do, but clients still ignore the checklist.",
+        "directness_tier": "direct",
+        "confidence": "high",
+        "created_at": "2026-04-19T09:00:00Z",
+        "relevance_score": 0.91
+      },
+      {
+        "id": "gap_comp_002",
+        "source": "capterra",
+        "platform": "review_site",
+        "url": "https://example.com/capterra/client-portal-gap",
+        "title": "Client portals are heavy for simple onboarding",
+        "summary": "Competitor complaint: client portals are too heavy when agencies only need lightweight onboarding progress and reminders.",
+        "directness_tier": "adjacent",
+        "confidence": "medium",
+        "created_at": "2026-04-18T09:00:00Z",
+        "relevance_score": 0.79
+      },
+      {
+        "id": "gap_comp_003",
+        "source": "agency_forum",
+        "platform": "forum",
+        "url": "https://example.com/agency-forum/gap-comp-003",
+        "title": "Alternatives do not show what blocks the launch",
+        "summary": "Competitor complaint: alternatives lack a launch-blocker view that shows exactly which client item is delaying kickoff.",
+        "directness_tier": "direct",
+        "confidence": "medium",
+        "created_at": "2026-04-22T09:00:00Z",
+        "relevance_score": 0.85
+      }
+    ],
+    "competition_landscape": {
+      "direct_competitors": [
+        {
+          "name": "Asana",
+          "url": "https://example.com/asana",
+          "gap": "Internal PM is strong, but client-side onboarding accountability is weak.",
+          "threat_level": "high",
+          "evidence_refs": ["gap_comp_001"]
+        },
+        {
+          "name": "ClientPortalPro",
+          "url": "https://example.com/clientportalpro",
+          "gap": "Too heavy for small design agency onboarding.",
+          "threat_level": "medium",
+          "evidence_refs": ["gap_comp_002"]
+        }
+      ]
+    },
+    "trends_data": {
+      "keyword": "client onboarding checklist",
+      "overall_trend": "growing",
+      "confidence": 0.68
+    },
+    "ideal_customer_profile": "Design agencies with 3-20 employees that onboard 3-10 new clients per month and suffer launch delays from missing client assets.",
+    "pricing_strategy": "Test $49-$129/mo based on current agency PM spend and direct WTP from gap_wtp_001.",
+    "positioning": "Client onboarding completion monitor for small design agencies that need to see and unblock client-side launch delays.",
+    "distribution_strategy": "Start in agency owner communities and client onboarding complaint threads."
+  }
+}

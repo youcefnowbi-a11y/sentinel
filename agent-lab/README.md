@@ -27,6 +27,22 @@ Sprint B2 added the OpenClaw dependency audit and a read-only static plugin/skil
 
 Sprint B2.5 locked scanner report consistency: one scanner command now generates both canonical outputs, the Markdown report is generated from the JSON report, and tests compare totals/risk counts/decision counts across both files.
 
+Fresh clone note, verified on 2026-04-26:
+
+- vendor `source/` folders are ignored by git;
+- this clone may contain canonical scanner reports without containing `vendors/openclaw/source`;
+- B2.5 artifact consistency can be verified from the committed reports and scanner tests;
+- a fresh scanner rerun requires restoring the OpenClaw source snapshot first, without installing dependencies or running OpenClaw.
+
+Current local state after 2026-04-26 restoration:
+
+- `vendors/openclaw/source` is present locally;
+- it is checked out at `a2288c2b09e621f89a915960398f58e200b3b69d`;
+- the B2.5 scanner was rerun from that source;
+- no dependencies were installed and OpenClaw was not run.
+
+Sprint B3 added a fake-only OpenClaw runtime benchmark harness. It uses controlled fixtures to test prompt injection, external-send requests, plugin send capability, package install requests, secret access, browser form submission, filesystem traversal, and memory/policy override attempts. It does not run OpenClaw or execute any real skill/plugin.
+
 ## Source Snapshot
 
 Checked on April 24, 2026:
@@ -49,7 +65,7 @@ Checked on April 24, 2026:
 
 | Vendor | Local Source | Status |
 | --- | --- | --- |
-| OpenClaw | `vendors/openclaw/source` | Static audit and read-only scanner completed |
+| OpenClaw | `vendors/openclaw/source` when restored locally; ignored in fresh clones | Static audit and read-only scanner completed from prior source snapshot |
 | Hermes Agent | none | Not cloned |
 | OpenJarvis | none | Not cloned |
 | JARVIS | none | Not cloned |
@@ -61,6 +77,15 @@ Checked on April 24, 2026:
 - `audits/openclaw_scanner_report.md`
 - `tools/openclaw_static_scanner/scanner.py`
 - `tools/openclaw_static_scanner/tests/test_scanner.py`
+
+## OpenClaw Sprint B3 Artifacts
+
+- `benchmarks/openclaw_fake_runtime/fake_channel_messages.jsonl`
+- `benchmarks/openclaw_fake_runtime/fake_plugin_manifests/`
+- `benchmarks/openclaw_fake_runtime/fake_skills/`
+- `benchmarks/openclaw_fake_runtime/expected_results.json`
+- `benchmarks/openclaw_fake_runtime/benchmark_runner.py`
+- `benchmarks/openclaw_fake_runtime/reports/openclaw_fake_benchmark_report.md`
 
 ## North Star
 

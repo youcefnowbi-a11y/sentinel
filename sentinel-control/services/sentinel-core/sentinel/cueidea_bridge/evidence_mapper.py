@@ -82,8 +82,20 @@ def _evidence_type(entry: dict[str, Any], proof_tier: str) -> EvidenceType:
         entry.get("title"),
         entry.get("body"),
     )
+    negated_wtp = any(
+        re.search(pattern, signal_text)
+        for pattern in (
+            r"\bno\s+(direct\s+)?(wtp|willingness to pay|paid[-\s]?intent|pricing|budget|price)",
+            r"\bwithout\s+(wtp|willingness to pay|paid[-\s]?intent|pricing|budget|price)",
+            r"\bnot\s+(tied\s+to\s+)?paid\s+(intent|demand|interest)",
+            r"\bnot\s+tied\s+to\s+paid\b.*\b(intent|demand|interest)\b",
+            r"\bdo\s+not\s+show\b.*\b(wtp|willingness to pay|paid[-\s]?intent)",
+            r"\bdo\s+not\s+(mention|include|contain|show)\b.*\bpaid\b",
+            r"\bmissing\s+(wtp|willingness to pay|paid[-\s]?intent|pricing|budget|price)",
+        )
+    )
 
-    if (
+    if not negated_wtp and (
         "wtp" in signal_text
         or "willingness to pay" in signal_text
         or "budget" in signal_text
@@ -91,7 +103,7 @@ def _evidence_type(entry: dict[str, Any], proof_tier: str) -> EvidenceType:
         or re.search(r"\bpaid\b", signal_text)
     ):
         return EvidenceType.WTP
-    if any(token in signal_text for token in ("price", "pricing", "expensive", "cheap", "cost")):
+    if not negated_wtp and any(token in signal_text for token in ("price", "pricing", "expensive", "cheap", "cost")):
         return EvidenceType.PRICING
     if any(token in signal_text for token in ("competitor", "alternative", "complaint", "switching")):
         return EvidenceType.COMPETITOR_COMPLAINT

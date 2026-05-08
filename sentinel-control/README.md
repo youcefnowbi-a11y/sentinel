@@ -12,6 +12,7 @@ This repo is organized around three active areas:
 Supporting material:
 
 - `docs/` - product, security, and implementation docs
+- `docs/brain/` - certified brain boundary and review matrix
 - `preview/` - static preview fallback for browser checks
 
 Related local workspace:
@@ -25,15 +26,15 @@ Use `apps/web/.env.example` as the hosted/dev environment template. Real local c
 ## Start Here
 
 1. `WORKSPACE_MAP.md`
-2. `docs/PRODUCT_SPEC.md`
-3. `docs/SECURITY_MODEL.md`
-4. `docs/CODEX_TASKS.md`
-5. `docs/FIREWALL_POLICIES.md`
-6. `docs/DEPLOYMENT_PLAN.md`
-7. `docs/FULL_PROGRESS_REPORT.md`
+2. `docs/README.md`
+3. `docs/brain/README.md`
+4. `docs/architecture/SENTINEL_AGENT_MASTER_ARCHITECTURE.md`
+5. `docs/architecture/SENTINEL_AGENT_IMPLEMENTATION_ROADMAP.md`
+6. `docs/audits/SENTINEL_CORE_V1_CERTIFICATION.md`
+7. `docs/release/RELEASE_CLEAN_ROOM_POLICY.md`
 
 ## Working Rule
 
 Edit source, not generated output. The generated directories are ignored and can be recreated when needed.
 
-High-impact capabilities remain disabled in v1: email sending, browser form submission, shell execution, code modification, unrestricted filesystem access, and payments.
+High-impact capabilities remain authority-classed: email sending, shell execution, code modification, unrestricted filesystem access, and payments remain non-delegated. Browser form submit, download quarantine, upload authorized, private session, login authority, cookie/storage contracts, sandboxed JS evaluate, and HAR/body capture exist only through explicit Browser V3 contracts, receipts, and FinalGate checks.

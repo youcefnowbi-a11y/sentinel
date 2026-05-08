@@ -7,6 +7,14 @@ export type FeedbackRating = "useful" | "weak" | "approved" | "rejected";
 export type WatchlistStatus = "monitoring" | "needs_review" | "interview" | "validated" | "archived";
 export type PaidQuoteStatus = "draft" | "ready" | "payment_disabled";
 export type GTMPackQualityStatus = "draft" | "needs_revision" | "ready";
+export type MissionType = "gtm" | "research_summary";
+export type MissionMode = "safe" | "operator" | "power" | "autonomous";
+export type MissionStatus = "planned" | "running" | "paused" | "escalated" | "completed" | "failed" | "stopped" | "revoked";
+export type MissionActionRoute = "auto_execute" | "log_and_continue" | "escalate" | "block";
+export type ReversibilityLevel = "read_only" | "draft" | "local_write_reversible" | "state_mutating_recoverable" | "irreversible";
+export type ExternalityLevel = "internal_local" | "internal_connected_system" | "external_private" | "external_public";
+export type SensitivityLevel = "public" | "internal" | "personal" | "secret" | "financial" | "identity";
+export type MissionConfidenceLevel = "high" | "medium" | "low" | "unknown";
 
 export interface EvidenceRow {
   id: string;
@@ -242,4 +250,130 @@ export interface CreateFeedbackInput {
   targetId: string;
   rating: FeedbackRating;
   note?: string;
+}
+
+export interface MissionTypeRow {
+  id: MissionType;
+  label: string;
+  description: string;
+  status: "enabled" | "disabled" | "lab_only";
+  allowedActions: string[];
+  allowedTools: string[];
+  blackZoneActions: string[];
+}
+
+export interface MissionAuthorityEnvelopeRow {
+  id: string;
+  userId: string;
+  missionType: MissionType;
+  missionTitle: string;
+  missionObjective: string;
+  successCriteria: string[];
+  mode: MissionMode;
+  allowedSystems: string[];
+  allowedTools: string[];
+  allowedActions: string[];
+  forbiddenActions: string[];
+  allowedPaths: string[];
+  allowedDomains: string[];
+  allowedAccounts: string[];
+  allowedDataTypes: string[];
+  maxDurationMinutes: number;
+  maxActions: number;
+  maxCostUsd: number;
+  maxRecipients: number;
+  riskAppetiteScore: number;
+  escalationTriggers: string[];
+  rollbackPreference: string;
+  traceLevel: string;
+  emergencyStopEnabled: boolean;
+  sourceRunId?: string;
+  createdAt: string;
+  expiresAt?: string;
+  revokedAt?: string;
+}
+
+export interface MissionStateRow {
+  missionId: string;
+  status: MissionStatus;
+  currentStep?: string;
+  actionCount: number;
+  costUsed: number;
+  startedAt?: string;
+  updatedAt: string;
+  endedAt?: string;
+}
+
+export interface MissionActionRow {
+  id: string;
+  missionId: string;
+  actionType: string;
+  tool: string;
+  intent: string;
+  target?: string;
+  expectedOutput: string;
+  reversibility: ReversibilityLevel;
+  externality: ExternalityLevel;
+  sensitivity: SensitivityLevel;
+  estimatedCost: number;
+  confidence: MissionConfidenceLevel;
+  riskScore: number;
+  route: MissionActionRoute;
+  evidenceRefs: string[];
+  createdAt: string;
+  executedAt?: string;
+}
+
+export interface MissionArtifactRow {
+  id: string;
+  missionId: string;
+  artifactType: string;
+  path: string;
+  evidenceRefs: string[];
+  status: string;
+  createdByActionId?: string;
+  canRollback: boolean;
+  createdAt: string;
+}
+
+export interface MissionTraceEventRow {
+  id: string;
+  missionId: string;
+  eventType: string;
+  actor: "sentinel" | "user" | "system";
+  actionId?: string;
+  summary: string;
+  target?: string;
+  impact?: string;
+  reversible: boolean;
+  cost: number;
+  timestamp: string;
+}
+
+export interface EscalationRequestRow {
+  id: string;
+  missionId: string;
+  actionId: string;
+  reason: string;
+  userQuestion: string;
+  actionPreview: Record<string, string>;
+  impactSummary: string;
+  options: Array<"approve_once" | "allow_for_this_mission" | "deny" | "take_over">;
+  resolution?: "approve_once" | "allow_for_this_mission" | "deny" | "take_over";
+  createdAt: string;
+  resolvedAt?: string;
+}
+
+export interface MissionRecord {
+  envelope: MissionAuthorityEnvelopeRow;
+  state: MissionStateRow;
+  actions: MissionActionRow[];
+  artifacts: MissionArtifactRow[];
+  traceEvents: MissionTraceEventRow[];
+  escalations: EscalationRequestRow[];
+  missionType: MissionTypeRow;
+  reviewer: {
+    ready: boolean;
+    issues: Array<{ code: string; severity: "low" | "medium" | "high" | "critical"; message: string }>;
+  };
 }

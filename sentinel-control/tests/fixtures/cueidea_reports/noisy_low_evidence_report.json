@@ -1,0 +1,73 @@
+{
+  "id": "cue_val_noisy_low_001",
+  "validation_id": "cue_val_noisy_low_001",
+  "idea_text": "AI dashboard for every creator business metric",
+  "status": "completed",
+  "report": {
+    "id": "cue_val_noisy_low_001",
+    "idea_text": "AI dashboard for every creator business metric",
+    "verdict": "research_more",
+    "confidence": 31,
+    "executive_summary": "The report contains noisy adjacent signals and broad creator analytics interest, but no direct pain, no WTP, and no concrete buyer segment.",
+    "market_analysis": {
+      "pain_description": "No direct pain was confirmed.",
+      "evidence": [
+        {
+          "id": "noisy_supporting_001",
+          "source": "scrape_batch_anon_42",
+          "platform": "keyword_scrape",
+          "title": "creator dashboard mentions",
+          "summary": "Supporting signal: broad keyword mentions of dashboards for creators without a specific problem or buyer.",
+          "directness_tier": "supporting",
+          "confidence": "low",
+          "observed_at": "2026-03-10T09:00:00Z",
+          "relevance_score": 0.28
+        },
+        {
+          "id": "noisy_adjacent_001",
+          "source": "trend_scrape_anon_17",
+          "platform": "search",
+          "title": "analytics tools comparison",
+          "summary": "Adjacent proof: search comparisons mention analytics tools but do not show creator willingness to pay.",
+          "directness_tier": "adjacent",
+          "confidence": 0.32,
+          "observed_at": "2026-02-18T09:00:00Z",
+          "relevance_score": 0.34
+        },
+        {
+          "id": "noisy_supporting_002",
+          "source": "forum_batch_anon_03",
+          "platform": "forum",
+          "title": "general creator metrics thread",
+          "summary": "Supporting community signal: creators discuss metrics generally, but there is no repeated urgent pain.",
+          "directness_tier": "supporting",
+          "confidence": "low",
+          "observed_at": "2026-01-20T09:00:00Z",
+          "relevance_score": 0.25
+        }
+      ]
+    },
+    "wtp_evidence": [],
+    "competitor_complaints": [],
+    "competition_landscape": {
+      "direct_competitors": [
+        {
+          "name": "GenericAnalytics",
+          "url": "https://example.com/generic-analytics",
+          "gap": "No validated gap. Mentioned only as a broad alternative.",
+          "threat_level": "unknown",
+          "evidence_refs": ["noisy_adjacent_001"]
+        }
+      ]
+    },
+    "trends_data": {
+      "keyword": "creator analytics dashboard",
+      "overall_trend": "unclear",
+      "confidence": 0.33
+    },
+    "ideal_customer_profile": "Evidence gap: buyer segment is too broad.",
+    "pricing_strategy": "Evidence gap: no paid intent or pricing evidence was found.",
+    "positioning": "Evidence gap: category positioning is not supported by direct proof.",
+    "distribution_strategy": "Research more before outreach."
+  }
+}

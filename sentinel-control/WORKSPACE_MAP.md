@@ -13,7 +13,7 @@ This is the local development tree for Sentinel Control.
 
 ## Sibling Workspaces
 
-- `../agent-lab/` - research-only workspace for auditing external agent runtimes such as OpenClaw, Hermes Agent, OpenJarvis, and JARVIS. It is not production code and does not feed vendor code directly into Sentinel.
+- `../agent-lab/` - research-only workspace for auditing external agent runtimes. It is not production code and does not feed vendor code directly into Sentinel.
 
 ## Main Build Zones
 
@@ -43,16 +43,16 @@ The agent core.
 
 ### `docs/`
 
-Primary docs used to steer implementation:
+Primary docs are organized by domain:
 
-- `PRODUCT_SPEC.md`
-- `SECURITY_MODEL.md`
-- `FIREWALL_POLICIES.md`
-- `GTM_OPERATOR_SPEC.md`
-- `CODEX_TASKS.md`
-- `EVIDENCE_LEDGER_UI_MOCK.md`
-- `DEPLOYMENT_PLAN.md`
-- `FULL_PROGRESS_REPORT.md`
+- `README.md` - documentation index.
+- `brain/` - certified brain boundary, runtime flow, replay, evidence, final gate, and review matrix.
+- `architecture/` - master architecture, implementation roadmap, and foundry direction.
+- `mission-os/` - GTM operator, security model, firewall policy, and evidence contract.
+- `product/` - product spec and UI mock docs.
+- `operations/` - deployment plan and release operations.
+- `audits/` - progress reports, implementation audits, and certification records.
+- `release/` - final product clean-room and release hygiene rules.
 
 ### `packages/evals/`
 

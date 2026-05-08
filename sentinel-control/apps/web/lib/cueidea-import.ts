@@ -82,8 +82,17 @@ function tagsFor(entry: AnyRecord, tier: EvidenceRow["proofTier"]) {
   const tags = new Set<string>();
   if (tier === "direct") tags.add("direct proof");
   if (tier === "adjacent") tags.add("adjacent proof");
-  if (joined.match(/\b(wtp|willingness to pay|would pay|will pay|paid|budget)\b/)) tags.add("wtp");
-  if (joined.includes("price") || joined.includes("pricing") || joined.includes("cost")) tags.add("pricing");
+  const negatedWtp = [
+    /\bno\s+(direct\s+)?(wtp|willingness to pay|paid[-\s]?intent|pricing|budget|price)/,
+    /\bwithout\s+(wtp|willingness to pay|paid[-\s]?intent|pricing|budget|price)/,
+    /\bnot\s+(tied\s+to\s+)?paid\s+(intent|demand|interest)/,
+    /\bnot\s+tied\s+to\s+paid\b.*\b(intent|demand|interest)\b/,
+    /\bdo\s+not\s+show\b.*\b(wtp|willingness to pay|paid[-\s]?intent)/,
+    /\bdo\s+not\s+(mention|include|contain|show)\b.*\bpaid\b/,
+    /\bmissing\s+(wtp|willingness to pay|paid[-\s]?intent|pricing|budget|price)/,
+  ].some((pattern) => pattern.test(joined));
+  if (!negatedWtp && joined.match(/\b(wtp|willingness to pay|would pay|will pay|paid|budget)\b/)) tags.add("wtp");
+  if (!negatedWtp && (joined.includes("price") || joined.includes("pricing") || joined.includes("cost"))) tags.add("pricing");
   if (joined.includes("competitor") || joined.includes("alternative") || joined.includes("complaint") || joined.includes("switching")) tags.add("competitor gap");
   if (joined.includes("trend") || joined.includes("growing") || joined.includes("momentum")) tags.add("trend");
   if (joined.includes("community") || joined.includes("subreddit") || joined.includes("forum")) tags.add("community");

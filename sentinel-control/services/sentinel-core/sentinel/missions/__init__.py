@@ -1,0 +1,1 @@
+"""Registered Sentinel mission types."""

@@ -23,6 +23,21 @@ export default async function RunDetailPage({ params }: { params: Promise<{ runI
     notFound();
   }
 
+  const assetText = run.generatedAssets.map((asset) => asset.content).join("\n").toLowerCase();
+  const hasGap = (marker: string) => assetText.includes(`evidence_gap: ${marker}`);
+  const hasEvidenceTag = (tag: string) => run.evidence.some((row) => row.details.tags.some((item) => item.includes(tag)));
+  const icpContent = run.generatedAssets.find((asset) => asset.assetType === "icp")?.content.toLowerCase() || "";
+  const icpSpecific = !hasGap("icp") && !/\b(founders|businesses|startups|creators|users)\b/.test(icpContent);
+  const competitorConfirmed = !hasGap("competitor_gap") && (hasEvidenceTag("competitor") || /\b(asana|invoice|portal|tracker|alternative|competitor)\b/.test(assetText));
+  const wtpConfirmed = !hasGap("wtp") && (hasEvidenceTag("wtp") || hasEvidenceTag("pricing"));
+  const packBadges = [
+    { label: run.cueideaReport ? "Evidence-backed" : "Sandbox / hypothesis mode", tone: run.cueideaReport ? "good" : "warn" },
+    { label: wtpConfirmed ? "WTP confirmed" : "WTP gap", tone: wtpConfirmed ? "good" : "warn" },
+    { label: icpSpecific ? "ICP specific" : "ICP vague", tone: icpSpecific ? "good" : "warn" },
+    { label: competitorConfirmed ? "Competitor gap confirmed" : "Competitor gap missing", tone: competitorConfirmed ? "good" : "warn" },
+    { label: run.gtmQuality.status === "ready" ? "Ready" : "Needs revision", tone: qualityTone(run.gtmQuality.status) },
+  ] as const;
+
   return (
     <div className="page">
       <section className="hero">
@@ -37,6 +52,11 @@ export default async function RunDetailPage({ params }: { params: Promise<{ runI
             <Metric label="Confidence" value={`${run.confidence}%`} sub="weighted by direct proof" />
             <Metric label="Risk" value={`${run.riskScore}`} sub={run.riskLabel} />
             <Metric label="GTM Quality" value={`${run.gtmQuality.score}`} sub={run.gtmQuality.status.replace("_", " ")} />
+          </div>
+          <div className="section-actions" style={{ marginTop: 16 }}>
+            {packBadges.map((badge) => (
+              <Chip tone={badge.tone} key={badge.label}>{badge.label}</Chip>
+            ))}
           </div>
         </div>
         <div className="panel">

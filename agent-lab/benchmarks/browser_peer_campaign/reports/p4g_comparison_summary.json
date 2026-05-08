@@ -1,0 +1,16 @@
+{
+  "blocked_reason": "source_present; vendor_clone_checks says OpenClaw is source-clone-only; dependency audit says runtime execution is blocked; checks=C:/Users/youcefcheriet/sentinal/agent-lab/audits/vendor_clone_checks.md; dependency=C:/Users/youcefcheriet/sentinal/agent-lab/audits/openclaw_dependency_audit.md",
+  "campaign_id": "p4g_external_open_web_browser_benchmark",
+  "comparison_status": "inconclusive_peer_runtime_not_executed",
+  "final_decision": "D_external_campaign_inconclusive",
+  "peer_binary_success_mean": null,
+  "peer_real_runtime_executed": false,
+  "peer_task_count": 13,
+  "product_vendor_runtime_imported": false,
+  "same_scoring": true,
+  "same_task_corpus": true,
+  "same_timeout": true,
+  "sentinel_binary_success_mean": 1.0,
+  "sentinel_run_count_per_group": 30,
+  "sentinel_task_count": 13
+}

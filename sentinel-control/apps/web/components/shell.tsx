@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpenText, Cable, CreditCard, FlaskConical, FolderOpen, Kanban, LayoutDashboard, ListTree, Shield, Users, Workflow } from "lucide-react";
+import { BookOpenText, Cable, CreditCard, FlaskConical, FolderOpen, Kanban, LayoutDashboard, ListTree, Shield, Target, Users, Workflow } from "lucide-react";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
 const navItems = [
   { href: "/dashboard", label: "Agents", icon: LayoutDashboard },
+  { href: "/dashboard/missions", label: "Missions", icon: Target },
   { href: "/dashboard/cueidea", label: "CueIdea", icon: Cable },
   { href: "/dashboard/firewall", label: "Firewall", icon: Shield },
   { href: "/dashboard/execution", label: "Execution", icon: Kanban },

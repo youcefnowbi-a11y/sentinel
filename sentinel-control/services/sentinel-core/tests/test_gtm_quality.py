@@ -19,6 +19,7 @@ def strong_pack() -> GTMPackQualityInput:
         outreach="I saw designers discussing awkward invoice follow-ups. I am testing tone-aware reminders for freelancers; would 10 minutes of feedback be useful? Reply stop if not relevant.",
         landing="Collect overdue invoices without sounding robotic. Tone-aware payment reminders for freelance designers with recurring clients.",
         roadmap="Day 1: interview 5 designers. Day 2: collect pricing anchors. Day 3: test two landing headlines. Day 4: send 10 approved drafts. Day 5-6: log objections. Day 7: decide build/pivot/kill.",
+        prospect_sources="Specific sources: r/freelance invoice reminder threads and Designer Hangout billing forum discussions.",
         evidence_refs={
             "icp": ["ev_1"],
             "wtp": ["ev_2"],
@@ -27,6 +28,7 @@ def strong_pack() -> GTMPackQualityInput:
             "outreach": ["ev_1", "ev_2"],
             "landing": ["ev_1"],
             "roadmap": ["ev_1", "ev_2"],
+            "prospect_sources": ["ev_1"],
         },
     )
 

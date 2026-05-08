@@ -1,0 +1,91 @@
+{
+  "id": "cue_val_s2_objection_001",
+  "validation_id": "cue_val_s2_objection_001",
+  "idea_text": "Privacy-safe client call summary tool for independent consultants",
+  "status": "completed",
+  "report": {
+    "id": "cue_val_s2_objection_001",
+    "idea_text": "Privacy-safe client call summary tool for independent consultants",
+    "verdict": "niche_down",
+    "confidence": 79,
+    "executive_summary": "Independent consultants show meeting follow-up pain and WTP, but privacy and client trust objections must shape positioning.",
+    "market_analysis": {
+      "evidence": [
+        {
+          "id": "s2_obj_pain_001",
+          "source": "consultant_forum",
+          "platform": "forum",
+          "community": "Independent Consultants Network",
+          "url": "https://example.com/consultants/follow-up-notes",
+          "title": "Client call follow-ups take hours",
+          "summary": "Direct pain: independent consultants spend hours turning client calls into follow-up notes and actions.",
+          "quote": "After every call I lose an hour turning notes into a client-safe recap.",
+          "directness_tier": "direct",
+          "confidence": "high",
+          "icp_segment": "independent consultants managing 8-20 active clients",
+          "buying_trigger": "post-call follow-up work takes hours",
+          "created_at": "2026-04-25T09:00:00Z",
+          "relevance_score": 0.9
+        },
+        {
+          "id": "s2_obj_objection_001",
+          "source": "consultant_forum",
+          "platform": "forum",
+          "community": "Independent Consultants Network",
+          "url": "https://example.com/consultants/privacy-objection",
+          "title": "Client confidentiality makes AI note tools risky",
+          "summary": "Objection: consultants worry generic AI meeting tools create privacy and trust risk with client data.",
+          "quote": "I cannot paste sensitive client calls into a generic AI tool without trust controls.",
+          "objection": "privacy and client trust risk",
+          "directness_tier": "direct",
+          "confidence": "high",
+          "icp_segment": "independent consultants managing sensitive client calls",
+          "created_at": "2026-04-24T09:00:00Z",
+          "relevance_score": 0.86
+        }
+      ]
+    },
+    "wtp_evidence": [
+      {
+        "id": "s2_obj_wtp_001",
+        "source": "cueidea_interview",
+        "platform": "cueidea_interview",
+        "url": "https://example.com/interviews/s2-objection-wtp",
+        "title": "Consultant would pay for privacy-safe summaries",
+        "summary": "Direct WTP: consultant would pay $39/mo for privacy-safe client call summaries if trust controls are clear.",
+        "quote": "I would pay $39/month if privacy controls were obvious.",
+        "directness_tier": "direct",
+        "confidence": "medium",
+        "icp_segment": "independent consultants managing sensitive client calls",
+        "created_at": "2026-04-25T13:00:00Z",
+        "relevance_score": 0.84
+      }
+    ],
+    "competitor_complaints": [
+      {
+        "id": "s2_obj_comp_001",
+        "source": "g2",
+        "platform": "review_site",
+        "url": "https://example.com/g2/meeting-ai-privacy",
+        "title": "Generic meeting AI lacks client trust controls",
+        "summary": "Competitor complaint: generic meeting AI tools summarize calls but lack consultant-specific client trust and privacy positioning.",
+        "competitor": "MeetingNotesAI",
+        "alternative": "generic meeting summary tools",
+        "objection": "privacy and client trust risk",
+        "directness_tier": "direct",
+        "confidence": "medium",
+        "created_at": "2026-04-22T09:00:00Z",
+        "relevance_score": 0.8
+      }
+    ],
+    "competition_landscape": {
+      "direct_competitors": [
+        {
+          "name": "MeetingNotesAI",
+          "gap": "Summaries without consultant-specific privacy and client trust framing.",
+          "evidence_refs": ["s2_obj_comp_001"]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "id": "cue_val_weak_wtp_001",
+  "validation_id": "cue_val_weak_wtp_001",
+  "idea_text": "AI meeting summary workspace for independent consultants",
+  "status": "completed",
+  "report": {
+    "id": "cue_val_weak_wtp_001",
+    "idea_text": "AI meeting summary workspace for independent consultants",
+    "verdict": "research_more",
+    "confidence": 57,
+    "executive_summary": "Consultants mention meeting admin pain, but CueIdea found no direct willingness-to-pay or pricing signal. The run should remain research_more.",
+    "market_analysis": {
+      "pain_description": "Independent consultants dislike rewriting meeting notes into follow-up tasks.",
+      "evidence": [
+        {
+          "id": "weak_pain_001",
+          "source": "reddit",
+          "platform": "reddit",
+          "url": "https://example.com/r/consulting/post/weak-pain-001",
+          "title": "Meeting notes take too long after calls",
+          "summary": "Direct pain: consultants manually turn meeting notes into client follow-up tasks.",
+          "quote": "I lose time after every call rewriting notes for clients.",
+          "directness_tier": "direct",
+          "confidence": "medium",
+          "created_at": "2026-04-22T10:00:00Z",
+          "relevance_score": 0.8
+        },
+        {
+          "id": "weak_adjacent_001",
+          "source": "linkedin_group",
+          "platform": "community",
+          "url": "https://example.com/groups/consultant-notes",
+          "title": "Consultants compare note templates",
+          "summary": "Adjacent community signal: consultants share meeting note templates but do not mention paid intent.",
+          "directness_tier": "adjacent",
+          "confidence": "low",
+          "created_at": "2026-04-21T09:00:00Z",
+          "relevance_score": 0.56
+        }
+      ]
+    },
+    "wtp_evidence": [],
+    "competitor_complaints": [
+      {
+        "id": "weak_comp_001",
+        "source": "review_site",
+        "platform": "review_site",
+        "url": "https://example.com/reviews/summary-tools",
+        "title": "Existing tools are okay but generic",
+        "summary": "Competitor complaint: existing meeting summary tools are generic, but the gap is not tied to paid consultant demand.",
+        "directness_tier": "adjacent",
+        "confidence": "low",
+        "created_at": "2026-04-18T12:00:00Z",
+        "relevance_score": 0.48
+      }
+    ],
+    "competition_landscape": {
+      "direct_competitors": [
+        {
+          "name": "MeetingNotesAI",
+          "url": "https://example.com/meetingnotesai",
+          "gap": "Generic summaries; no consultant-specific client handoff workflow.",
+          "threat_level": "high",
+          "evidence_refs": ["weak_comp_001"]
+        }
+      ]
+    },
+    "trends_data": {
+      "keyword": "meeting summary ai",
+      "overall_trend": "crowded",
+      "confidence": 0.62
+    },
+    "ideal_customer_profile": "Independent consultants who run many client calls, but buyer urgency is not yet proven.",
+    "pricing_strategy": "Evidence gap: no WTP or pricing evidence was found.",
+    "positioning": "Potentially consultant-specific meeting follow-up, pending paid-intent validation.",
+    "distribution_strategy": "Interview consultants before generating a build verdict."
+  }
+}

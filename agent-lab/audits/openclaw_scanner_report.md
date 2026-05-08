@@ -12,11 +12,11 @@ This report is generated from `openclaw_scanner_report.json` by `openclaw_static
 | --- | --- |
 | scanner_version | 0.2.0 |
 | ruleset_version | 2026-04-24.b2.5 |
-| scan_timestamp | 2026-04-24T18:12:20Z |
+| scan_timestamp | 2026-04-26T11:40:09Z |
 | source_commit | a2288c2b09e621f89a915960398f58e200b3b69d |
-| source_path | C:/Users/PC/Desktop/youcef/A/agent-lab/vendors/openclaw/source |
+| source_path | C:/Users/youcefcheriet/sentinal/agent-lab/vendors/openclaw/source |
 | total_items | 83 |
-| json_sha256 | 3cc47f733eef993be50fb065adfd6298f848631c29232fc43199652cdb27dbcf |
+| json_sha256 | b3d6fc8e999fa3871e999d522a9ebcbad9258280d1cc934cde95aefa60562580 |
 | json_sha256_scope | sha256 of canonical JSON with metadata.json_sha256 set to an empty string |
 
 ## Summary

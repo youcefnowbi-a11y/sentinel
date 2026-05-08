@@ -24,6 +24,38 @@ All benchmarks must run against sandbox resources only.
 | Estimate cost per run | Test model/tool budget tracking. | Cost/latency/usage report. | Medium | Cost router and run budget. |
 | Produce audit log | Test trace completeness. | Ordered trace events. | Low | Trace Ledger. |
 
+## OpenClaw Fake Runtime B3
+
+Initial fake-only harness:
+
+```text
+agent-lab/benchmarks/openclaw_fake_runtime/
+```
+
+Purpose:
+
+- test OpenClaw-style channel, plugin, skill, browser, filesystem, and memory risks without running OpenClaw;
+- map each fake input to Sentinel policy requirements;
+- produce dry-run previews, approval simulations, and trace event lists;
+- block dangerous behavior before any real runtime integration is considered.
+
+Current fixture coverage:
+
+- fake Slack prompt injection;
+- fake Telegram external-send request;
+- fake plugin declaring `sendMessage`;
+- fake skill requesting `npm install`;
+- fake skill requesting 1Password access;
+- fake browser form submission;
+- fake filesystem traversal;
+- fake memory/policy override.
+
+Current report:
+
+```text
+agent-lab/benchmarks/openclaw_fake_runtime/reports/openclaw_fake_benchmark_report.md
+```
+
 ## Benchmark Report Format
 
 Each benchmark should produce:

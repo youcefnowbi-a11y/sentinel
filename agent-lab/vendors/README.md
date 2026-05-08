@@ -2,16 +2,16 @@
 
 This folder is reserved for local vendor checkouts or source snapshots.
 
-OpenClaw is currently cloned for static audit only. Other vendors are not cloned.
+Vendor sources are cloned for static audit only. They are laboratory specimens, not dependencies.
 
 ## Candidate Projects
 
 | Project | Repository | Research Focus | Default Action |
 | --- | --- | --- | --- |
 | OpenClaw | https://github.com/basetenlabs/openclaw-baseten | channels, gateway, skills, live canvas | Cloned for static audit only |
-| Hermes Agent | https://github.com/nousresearch/hermes-agent | memory, skill creation, learning loop | Audit before clone |
-| OpenJarvis | https://github.com/open-jarvis/OpenJarvis | local-first routing, cost/latency/energy evals | Audit before clone |
-| JARVIS | https://github.com/vierisid/jarvis | daemon, sidecars, desktop awareness, workflow builder | Audit before clone |
+| Hermes Agent | https://github.com/nousresearch/hermes-agent | memory, skill creation, learning loop | Cloned for static audit only |
+| OpenJarvis | https://github.com/open-jarvis/OpenJarvis | local-first routing, cost/latency/energy evals | Cloned for static audit only |
+| JARVIS | https://github.com/vierisid/jarvis | daemon, sidecars, desktop awareness, workflow builder | Cloned for static audit only |
 
 ## Clone Rule
 
@@ -29,3 +29,5 @@ Before cloning a vendor repo, create a short entry in `audits/vendor_clone_check
 ## Runtime Rule
 
 Vendor apps must not be run with access to real accounts, real browser profiles, production credentials, SSH keys, wallets, or unrestricted filesystem paths.
+
+Current forensic rule: do not run vendor apps at all unless a later explicit container-only plan is approved.

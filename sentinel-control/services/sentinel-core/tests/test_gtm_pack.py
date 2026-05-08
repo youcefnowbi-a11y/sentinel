@@ -32,9 +32,10 @@ def test_gtm_pack_sections_all_reference_evidence():
     debate = DebateOrchestrator().debate("AI invoice chasing", items)
     pack = GTMPackGenerator().generate("AI invoice chasing", debate, items)
 
-    assert len(pack.sections) == 10
+    assert len(pack.sections) == 11
     assert all(section.evidence_refs for section in pack.sections)
     assert any(section.filename == "09_DECISION_RULES.md" and "Kill if" in section.content for section in pack.sections)
+    assert any(section.filename == "10_PROSPECT_SOURCES.md" for section in pack.sections)
 
 
 def test_gtm_pack_actions_are_draft_and_file_only():
@@ -46,4 +47,3 @@ def test_gtm_pack_actions_are_draft_and_file_only():
     assert actions[0].tool == "create_folder"
     assert any(action.tool == "prepare_email_draft" and action.requires_approval for action in actions)
     assert not any(action.tool == "send_email" for action in actions)
-

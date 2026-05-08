@@ -10,6 +10,8 @@
 !agent-lab/**
 !RedditPulse/
 !RedditPulse/**
+!PLAN/
+!PLAN/**
 
 # Secrets and environment files
 **/.env
@@ -36,7 +38,10 @@ sentinel-control/data/generated_projects/
 sentinel-control/data/traces/
 sentinel-control/data/evidence_cache/
 sentinel-control/data/memory/
+sentinel-control/data/mission_state.json
 sentinel-control/data/web_state.json
+sentinel-control/services/sentinel-core/data/generated_projects/
+sentinel-control/services/sentinel-core/w/
 
 # Agent Lab vendor source clones are research inputs, not repo-owned source.
 agent-lab/vendors/*/source/
@@ -64,3 +69,6 @@ RedditPulse/engine/data/working_proxies.txt
 # Logs and local reports
 **/*.log
 *.log
+
+# Local benchmark scratch outputs. Keep benchmark source and reports tracked.
+agent-lab/benchmarks/browser_tasks/tmp_*/
