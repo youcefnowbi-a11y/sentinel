@@ -5,12 +5,63 @@ Date: 2026-05-07
 ## Phase
 
 ```text
-current_phase = P5L_FULL_LOCKED
-previous_phase = P5K_FULL_LOCKED
-next_phase = P6A_EXTERNAL_ORGANS_RUNTIME_PLANNING
+current_phase = ARCHITECTURE_A_TO_Z_LOCKED
+previous_phase = P5L_FULL_LOCKED
+next_phase = P6A_EXTERNAL_ORGAN_FOUNDRY
 ```
 
-P5L is accepted as full locked. It integrates and hardens the Brain L4 stack
+The Sentinel A to Z architecture lock is accepted as the project compass before
+P6 external organs. It records where Sentinel's powers are harvested from, why
+they matter, how they are rewritten under Sentinel authority, which product
+workflows use them, and which promotion levels must be passed before execution.
+
+This lock is docs-only. It does not execute external systems, grant authority,
+add external powers, implement payment/spend runtime, trading runtime, account
+creation, credential access, browser power expansion, vendor runtime bridges, or
+authority expansion.
+
+## Architecture A To Z Verification
+
+```text
+docs-only architecture lock = created
+external source ledger = financial-services and CloakBrowser recorded
+CloakBrowser powers = classified, not discarded
+misuse objectives = blocked by Brain power governance
+product workflow map = created
+repo governance and dirty-tree policy = created
+promotion ladder L0-L8 = created
+runtime powers added = 0
+vendor code copied = 0
+```
+
+Required files:
+
+```text
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/00_README_PROJECT_COMPASS.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/01_ORIGIN_AND_NORTH_STAR.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/02_AGENT_LAB_FORENSIC_EVIDENCE_INDEX.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/03_POWER_HARVEST_MAP.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/04_COMPARATIVE_ARCHITECTURE_ANALYSIS.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/05_TRADEOFF_DECISION_LEDGER.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/06_SENTINEL_SYSTEM_ARCHITECTURE_A_TO_Z.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/07_DIRECTORY_AND_FILE_BLUEPRINT.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/08_ADVISORY_TO_EXECUTABLE_PROMOTION_LADDER.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/09_SIMULATION_AND_PREMORTEM_SCENARIOS.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/10_PRESERVATION_CONSTRAINTS.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/11_PHASE_ROADMAP_P6_TO_P10.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/12_P6A_EXTERNAL_ORGAN_FOUNDRY_SPEC.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/13_ARCHITECTURE_LOCK_VERDICT.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/14_PRODUCT_WORKFLOW_MAP.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/15_REPO_GOVERNANCE_AND_DIRTY_TREE_POLICY.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/16_FINANCIAL_SERVICES_HARVEST_MAP.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/17_CLOAK_BROWSER_POWER_REVIEW.md
+sentinel-control/docs/architecture/SENTINEL_A_TO_Z_LOCK/18_SOURCE_RESEARCH_LEDGER.md
+sentinel-control/docs/CURRENT_STATE_LOCK.md
+```
+
+## Prior P5L Phase
+
+P5L remains accepted as full locked. It integrates and hardens the Brain L4 stack
 before P6 external organs. It does not execute external systems, grant authority,
 add external powers, implement payment/spend runtime, trading runtime, account
 creation, credential access, browser power expansion, or authority expansion.
